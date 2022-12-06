@@ -10,17 +10,17 @@ const Cita = () => {
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
             .then(res => setGetTomador(res.data))
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/v1/users')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
 
     const registrarDatosCitas = (data) => {
-        axios.post(`http://localhost:8000/api/v1/cita`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data)
             .catch(error => console.log(error.response))
             .then(() => getUsers())
         reset({

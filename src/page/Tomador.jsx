@@ -9,12 +9,12 @@ const Tomador = () => {
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/v1/users')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
 
     const registrarDatosTomador = (data) => {
-        axios.post(`http://localhost:8000/api/v1/tomador`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data)
             .catch(error => console.log(error.response))
         reset({
             "firstname": "",
