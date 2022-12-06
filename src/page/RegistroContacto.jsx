@@ -100,12 +100,24 @@ const RegistroContacto = () => {
                                         <textarea {...register("observacion")}></textarea>
                                     </div>
                                     <div className='form-contac-detail'>
-                                        <label htmlFor="fechatime">Tomador</label>
-                                        <input type="text" {...register("tomadorId")} />
+                                        <label htmlFor="nombre">Tomador</label>
+                                            <select name="nombre" {...register("tomadorId")}>
+                                                {
+                                                    getTomador.map(tomador => (
+                                                        <option value={Number(tomador.id)} key={tomador.id}>{tomador.firstname} {tomador.lastname}</option>
+                                                    ))
+                                                }
+                                            </select>
                                     </div>
                                     <div className='form-contac-detail'>
                                         <label htmlFor="fechatime">Usuario</label>
-                                        <input type="text" {...register("userId")} />
+                                        <select name="nombre" {...register("userId")}>
+                                                {
+                                                    getUsuario.map(user => (
+                                                        <option value={Number(user.id)} key={user.id}>{user.firstname} {user.lastname}</option>
+                                                    ))
+                                                }
+                                            </select>
                                     </div>
                                 </div>
                                 <div className='contenedor3'>
