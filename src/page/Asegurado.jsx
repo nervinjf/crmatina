@@ -41,6 +41,8 @@ const Asegurado = () => {
 
     }
 
+   
+
     return (
         <div>
             <div>
@@ -58,7 +60,7 @@ const Asegurado = () => {
                                             <select name="nombre" {...register("tomadorId")}>
                                                 {
                                                     getTomador.map(tomador => (
-                                                        <option value={Number(tomador.id)} key={tomador.id}>{tomador.firstname} {tomador.lastname}</option>
+                                                        <option value={tomador.id} key={tomador.id}>{tomador.firstname} {tomador.lastname}</option>
                                                     ))
                                                 }
                                             </select>
@@ -119,7 +121,7 @@ const Asegurado = () => {
                                         </div>
                                         <div className='form-contac-detail'>
                                             <label htmlFor="fechatime">Usuario</label>
-                                            <select name="nombre" {...register("userId")}>
+                                            <select name="nombre" {...register("user_id")}>
                                                 {
                                                     getUsuario.map(user => (
                                                         <option value={Number(user.id)} key={user.id}>{user.firstname} {user.lastname}</option>

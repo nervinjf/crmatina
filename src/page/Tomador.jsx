@@ -85,7 +85,7 @@ const Tomador = () => {
                                         </div>
                                         <div className='form-contac-detail'>
                                             <label htmlFor="fechatime">Fecha Nacimiento</label>
-                                            <input type="datetime-local" {...register("fNacimiento")} />
+                                            <input type="date" {...register("fNacimiento")} />
                                         </div>
                                         <div className='form-contac-detail'>
                                             <label htmlFor="fechatime">Patologia</label>

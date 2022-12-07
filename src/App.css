@@ -47,6 +47,18 @@ form{
   border-radius: 5px;
 }
 
+.hola {
+  width: 300px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgba(0 , 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+
 .container-form-input textarea{
   width: 300px;
   display: flex;
@@ -324,4 +336,64 @@ form button:hover .btn-i-hidden{
 
 .title-form{
   margin: 0;
+}
+
+.contain-Form-cita{
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.form-cita{
+  width: 45%;
+  padding: 1rem;
+  height: 8rem;
+}
+
+.contain-info-tomador{
+  width: 55%;
+  padding: 1rem;
+  height: 8rem;
+}
+
+.contain-info-tomador-input {
+  display: flex;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.3rem;
+  color: black;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.contain-info-tomador-input input{
+  height: 2.2rem;
+  text-align: center;
+  background: rgba(0 , 0, 0, 0.15);
+  border: none;
+  border-radius: 0.2rem;
+  color: black;
+}
+
+.contain-info-contacto{
+ padding-bottom: 1rem;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.contain-info-contacto-table{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 100%;
+}
+
+                    
+.form-cita-register{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
