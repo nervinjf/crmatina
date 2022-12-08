@@ -65,11 +65,12 @@ const Cita = () => {
         borderRadius: "5px",
     }
 
-    const testing = (id) => {
-        setGetTomadorId(id)
+    useEffect(() => {
         axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${getTomadorId}`)
-        .then(res => setGetTomadorIdO(res.data));
-    }
+            .then(res => setGetTomadorIdO(res.data))
+    }, [getTomadorId])
+
+    let value = 0
 
     return (
         <div>
@@ -80,8 +81,8 @@ const Cita = () => {
                 <div className='form-cita'>
                     <form onSubmit={handleSubmit(registrarDatosCitas)}>
                         <div>
-                            <AsyncSelect className='hola' id="id" placeholder="Tomador" {...register("tomadorId")}
-                                options={options} value={options.find(c => c.value)} onChange={val => testing(val.value)}
+                            <AsyncSelect className='hola' id="id" placeholder="Tomador"  {...register("tomadorId")}
+                                options={options} value={options.find(c => c.value === value)} onChange={val => setGetTomadorId(val.value)}
                             />
                         </div>
                         <div className='form-cita-register'>
