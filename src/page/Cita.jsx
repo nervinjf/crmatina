@@ -9,8 +9,10 @@ const Cita = () => {
 
     const [getTomador, setGetTomador] = useState([]);
     const [getUsuario, setGetUsuario] = useState([]);
-    const [getTomadorId, setGetTomadorId] = useState(0)
-    const [ getTomadorIdO, setGetTomadorIdO ] = useState([])
+    const [getTomadorId, setGetTomadorId] = useState(0);
+    const [infoTipo, setInfoTipo] = useState("");
+    const [infoPlan, setInfoPlan] = useState([]);
+    const [getTomadorIdO, setGetTomadorIdO] = useState([]);
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
@@ -24,7 +26,7 @@ const Cita = () => {
     }, [])
 
     const registrarDatosCitas = (data) => {
-        const data2 = ({...data, "tomadorId": getTomadorId});
+        const data2 = ({ ...data, "tomadorId": getTomadorId });
         axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
             .catch(error => console.log(error.response))
             .then(() => getUsers())
@@ -70,10 +72,17 @@ const Cita = () => {
             .then(res => setGetTomadorIdO(res.data))
     }, [getTomadorId])
 
-    let value = 0
+    let value = 0;
+
+    useEffect(() => {
+        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50000", "Premium - 100000", "Elite - 200000"]) :
+            infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1000", "Platinum - 2000"]) : "";
+
+
+    }, [infoTipo]);
 
     return (
-        <div>
+        <div className=''>
             <div className='title-form'>
                 <h1>Cita / Cotizacion</h1>
             </div>
@@ -85,25 +94,105 @@ const Cita = () => {
                                 options={options} value={options.find(c => c.value === value)} onChange={val => setGetTomadorId(val.value)}
                             />
                         </div>
-                        <div className='form-cita-register'>
-                            <input type="text" placeholder='Codigo' {...register("codigo")} />
-                            <input type="datetime-local" placeholder='Fecha' {...register("fecha")} />
-                            <input type="text" placeholder='Tipo' {...register("tipo")} />
-                            <input type="email" placeholder='Plan' {...register("plan")} />
-                            <input type="number" placeholder='Asegurados' {...register("asegurados")} />
-                            <input type="text" placeholder='Forma de Pago' {...register("fPago")} />
-                            <input type="text" placeholder='Efectivo' {...register("efectivo")} />
-                            <input type="text" placeholder='Tiempo' {...register("tiempo")} />
-                            <div>
-                                <label htmlFor="fechatime">Fecha Envio Cliente</label>
-                                <input type="date" placeholder='Fecha de cliente' {...register("fCliente")} />
+                        <div className='form--regis'>
+                            <div className='form-cot-cita-plani-regis'>
+                                <h3>Cotizacion</h3>
+                                <div className='form-cita-register'>
+                                    <input type="text" placeholder='Codigo' value="10092" {...register("codigo")} />
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="tipo" placeholder='Tipo'>Tipo: </label> */}
+                                        <select name="" id="" {...register("tipo")} onChange={(e) => setInfoTipo(e.target.value)}>
+                                            <option value="">--Seleccione tipo de Poliza--</option>
+                                            <option value="Salud">Salud</option>
+                                            <option value="Mascotas">Mascotas</option>
+                                        </select>
+                                    </div>
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="tipo" placeholder='Plan'>Plan: </label> */}
+                                        <select name="" id="" {...register("plan")}>
+                                            <option value="">--Seleccione el Plan --</option>
+                                            {
+                                                infoPlan.map(item => (
+                                                    <option value={item} key={item}>{item}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    </div>
+                                    <input type="number" placeholder='Asegurados' {...register("asegurados")} />
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="Mpago" placeholder='metodo de Pago'>Moneda</label> */}
+                                        <select name="Mpago" id="" {...register("efectivo")}>
+                                            <option value="">-- Seleccione el Tipo de Modeda --</option>
+                                            <option value="Dolares">Dolares</option>
+                                            <option value="Bolivares">Bolivares</option>
+                                        </select>
+                                    </div>
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="Mpago" placeholder='metodo de Pago'>Metodo de Pago</label> */}
+                                        <select name="Mpago" id="" {...register("fPago")}>
+                                            <option value="">-- Seleccione el Metodo de Pago --</option>
+                                            <option value="Efectivo">Efectivo</option>
+                                            <option value="Transferencias">Transferencias</option>
+                                            <option value="Zinli">Zinli</option>
+                                            <option value="Debito">Debito</option>
+                                            <option value="Credito">Credito</option>
+                                        </select>
+                                    </div>
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="">Tiempo</label> */}
+                                        <select name="" id="" {...register("tiempo")}>
+                                            <option value="">-- Seleccione el Tiempo --</option>
+                                            <option value="Mensual">Mensual</option>
+                                            <option value="Trimestral">Trimestral</option>
+                                            <option value="Semestral">Semestral</option>
+                                            <option value="Anual">Anual</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" placeholder='Monto Poliza' {...register("poliza")} />
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="fechatime">Fecha Devolucion</label>
-                                <input type="date" placeholder='fecha de devolucion' {...register("fDevolucion")} />
+                            <div className='form-cot-cita-plani-regis'>
+                                <h3>Cita</h3>
+                                <div className='form-cita-register form-cita-regis'>
+                                    <div className='form-cita-register-cotizacion'>
+                                        <label htmlFor="fechatime">Fecha Cita</label>
+                                        <input type="datetime-local" placeholder='Fecha' {...register("fecha")} />
+                                    </div>
+                                    <input type="text" placeholder='Status de Suscripcion' {...register("statusSuscripcion")} />
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="">Tiempo</label> */}
+                                        <select name="" id="" {...register("modoCita")}>
+                                            <option value="">-- Seleccione el modo de la cita --</option>
+                                            <option value="Mensual">Virtual</option>
+                                            <option value="Trimestral">Presencial</option>
+                                        </select>
+                                    </div>
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="">Tiempo</label> */}
+                                        <select name="" id="" {...register("citaAcomp")}>
+                                            <option value="">-- Seleccione el modo de la cita --</option>
+                                            <option value="Mensual">Solo</option>
+                                            <option value="Trimestral">Acompañado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
-                            <input type="text" placeholder='Poliza' {...register("poliza")} />
-                            <input type="text" placeholder='Status de Suscripcion' {...register("statusSuscripcion")} />
+                            <div className='form-cot-cita-plani-regis'>
+                                <h3>Planilla</h3>
+                                <div className='form-cita-register'>
+                                    <div className='form-cita-register-cotizacion'>
+                                        <label htmlFor="fechatime">Fecha Envio Cliente</label>
+                                        <input type="date" placeholder='Fecha de cliente' {...register("fCliente")} />
+                                    </div>
+                                    <div className='form-cita-register-cotizacion'>
+                                        <label htmlFor="fechatime">Fecha Devolucion</label>
+                                        <input type="date" placeholder='fecha de devolucion' {...register("fDevolucion")} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='user-form'>
                             <select name="usuario" placeholder='Usuaios' {...register("userId")}>
                                 {
                                     getUsuario.map(user => (
@@ -158,25 +247,58 @@ const Cita = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                        {
-                                            getTomadorIdO?.contacto?.map(user => (
-                                                <tr key={user?.id}>
+
+                                    {
+                                        getTomadorIdO?.contacto?.map(user => (
+                                            <tr key={user?.id}>
                                                 <td>{user?.createdAt}</td>
                                                 <td>{user?.fuente}</td>
                                                 <td>{user?.proposito}</td>
                                                 <td>{user?.estatus}</td>
                                                 <td>{user?.motivo3}</td>
                                                 <td>{user?.observacion}</td>
-                                                </tr>
-                                            ))
-                                        }
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </Table>
                         </div>
                     </div>
                 </div>
             </div>
+            <div className='contain-info-contacto'>
+                        <h4>Registro de Cita / Cotizacion</h4>
+                        <div className='contain-info-contacto-table'>
+                            <Table striped>
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Fecha Act.</th>
+                                        <th>Fuente</th>
+                                        <th>Proposito</th>
+                                        <th>Efectivo</th>
+                                        <th>Resultado</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {
+                                        getTomadorIdO?.cita?.map(user => (
+                                            <tr key={user?.id}>
+                                                <td>{user?.createdAt}</td>
+                                                <td>{user?.fuente}</td>
+                                                <td>{user?.proposito}</td>
+                                                <td>{user?.estatus}</td>
+                                                <td>{user?.motivo3}</td>
+                                                <td>{user?.observacion}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
         </div>
     );
 };

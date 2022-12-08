@@ -144,26 +144,6 @@ const RegistroContacto = () => {
                                                     <option value={test}>{test}</option>
                                                 ))
                                             }
-                                            
-                                            {/* <option value="Cita Efectiva">Cita Efectiva</option>
-                                            <option value="Cotización Enviada">Cotización Enviada</option>
-                                            <option value="Solicitud Envío de Información">Solicitud Envío de Información</option>
-                                            <option value="Confirmación de Suscripción">Confirmación de Suscripción</option>
-                                            <option value="Ya se encuentra asegurado">Ya se encuentra asegurado</option>
-                                            <option value="No desea poliza">No desea poliza</option>
-                                            <option value="Precios elevados">Precios elevados</option>
-                                            <option value="No está de acuerdo con la cobertura">No está de acuerdo con la cobertura</option>
-                                            <option value="Volver a Llamar">Volver a Llamar</option>
-                                            <option value="Confirma recepción de cotización">Confirma recepción de cotización</option>
-                                            <option value="En espera de aprobación">En espera de aprobación</option>
-                                            <option value="Inconveniente de comunicación">Inconveniente de comunicación</option>
-                                            <option value="No contesta">No contesta</option>
-                                            <option value="Ocupado">Ocupado</option>
-                                            <option value="Contestadora">Contestadora</option>
-                                            <option value="Equivocado">Equivocado</option>
-                                            <option value="Fuera de Servicio">Fuera de Servicio</option>
-                                            <option value="Sin Número">Sin Número</option>
-                                            <option value="Número Errado">Número Errado</option> */}
                                         </select>
                                     </div>
                                 </div>

@@ -340,23 +340,22 @@ form button:hover .btn-i-hidden{
 
 .contain-Form-cita{
   width: 100%;
-  height: 10rem;
+  height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .form-cita{
   width: 45%;
   padding: 1rem;
-  height: 8rem;
 }
 
 .contain-info-tomador{
   width: 55%;
   padding: 1rem;
-  height: 8rem;
 }
 
 .contain-info-tomador-input {
@@ -396,4 +395,46 @@ form button:hover .btn-i-hidden{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+
+.form-cita-register-cotizacion{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-cot-cita-plani-regis {
+  padding-bottom: 1rem;
+}
+
+.form-cot-cita-plani-regis select{
+  height: 2.2rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(0 , 0, 0, 0.4);
+  padding-left: 0.5rem;
+  color: black;
+}
+
+.form-cot-cita-plani-regis input{
+  height: 2.2rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(0 , 0, 0, 0.4);
+  padding-left: 0.5rem;
+  color: black;
+}
+
+.form--regis{
+  margin-left: 1.5rem;
+}
+
+.user-form select{
+  width: 20rem;
+  height: 2.2rem;
+  border-radius: 0.2rem;
+  border: 1px solid rgba(0 , 0, 0, 0.4);
+  padding-left: 0.5rem;
+  color: black;
+}
+
+.contenedor-cita-coti-pla{
+  margin-bottom: 5rem;
 }
