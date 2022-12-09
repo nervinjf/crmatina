@@ -11,27 +11,28 @@ import RegistroContacto from './RegistroContacto';
 
 const registrar = () => {
 
-    const [ button, setButton ] = useState('cita');
+    const [button, setButton] = useState('cita');
 
     return (
         <>
             <div>
                 <RegistroContacto />
             </div>
-        <div className='button'>
-            <div className='container-button'>
-                <button onClick={() => setButton('cita')}>Cita / Cotizacion</button>
-                <button onClick={() => setButton('Asegurado')}>Asegurado</button>
-                <button onClick={() => setButton('Tomador')}>Tomador</button>
+            <div className='button'>
+                <div className='container-button'>
+                    <button onClick={() => setButton('Tomador')}>Tomador</button>
+                    <button onClick={() => setButton('Asegurado')}>Asegurado</button>
+                    <button onClick={() => setButton('cita')}>Cita / Cotizacion</button>
+
+                </div>
             </div>
-        </div>
-        <div className='container-register'>
-            {
-                button === 'Asegurado' ? <Asegurado /> :
-                button === 'Tomador' ? <Tomador /> :
-                button === 'cita' ? <Cita /> : ""
-            }
-        </div>
+            <div className='container-register'>
+                {
+                    button === 'Asegurado' ? <Asegurado /> :
+                        button === 'Tomador' ? <Tomador /> :
+                            button === 'cita' ? <Cita /> : ""
+                }
+            </div>
         </>
     );
 };

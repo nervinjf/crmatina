@@ -27,6 +27,7 @@ const Cita = () => {
 
     const registrarDatosCitas = (data) => {
         const data2 = ({ ...data, "tomadorId": getTomadorId });
+        console.log(data2)
         axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
             .catch(error => console.log(error.response))
             .then(() => getUsers())
@@ -75,8 +76,8 @@ const Cita = () => {
     let value = 0;
 
     useEffect(() => {
-        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50000", "Premium - 100000", "Elite - 200000"]) :
-            infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1000", "Platinum - 2000"]) : "";
+        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50.000$", "Premium - 100.000$", "Elite - 200.000$"]) :
+            infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1.000$", "Platinum - 2.000$"]) : "";
 
 
     }, [infoTipo]);
@@ -158,7 +159,14 @@ const Cita = () => {
                                         <label htmlFor="fechatime">Fecha Cita</label>
                                         <input type="datetime-local" placeholder='Fecha' {...register("fecha")} />
                                     </div>
-                                    <input type="text" placeholder='Status de Suscripcion' {...register("statusSuscripcion")} />
+                                    <div className='form-cita-register-cotizacion'>
+                                        {/* <label htmlFor="">Tiempo</label> */}
+                                        <select name="" id="" {...register("statusSuscripcion")}>
+                                            {/* <option value="">-- Seleccione el modo de la cita --</option> */}
+                                            <option value="Mensual">Proceso</option>
+                                            <option value="Trimestral">Concluido</option>
+                                        </select>
+                                    </div>
                                     <div className='form-cita-register-cotizacion'>
                                         {/* <label htmlFor="">Tiempo</label> */}
                                         <select name="" id="" {...register("modoCita")}>
@@ -251,7 +259,7 @@ const Cita = () => {
                                     {
                                         getTomadorIdO?.contacto?.map(user => (
                                             <tr key={user?.id}>
-                                                <td>{user?.createdAt}</td>
+                                                <td>{new Date(user?.createdAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
                                                 <td>{user?.fuente}</td>
                                                 <td>{user?.proposito}</td>
                                                 <td>{user?.estatus}</td>
@@ -274,10 +282,12 @@ const Cita = () => {
                                     <tr>
                                         <th>Fecha</th>
                                         <th>Fecha Act.</th>
-                                        <th>Fuente</th>
-                                        <th>Proposito</th>
-                                        <th>Efectivo</th>
-                                        <th>Resultado</th>
+                                        <th>Tipo de Poliza</th>
+                                        <th>Plan</th>
+                                        <th>Tiempo</th>
+                                        <th>Monto de poliza</th>
+                                        <th>Fec. Cita</th>
+                                        <th>Status</th>
                                         <th>Editar</th>
                                     </tr>
                                 </thead>
@@ -286,12 +296,15 @@ const Cita = () => {
                                     {
                                         getTomadorIdO?.cita?.map(user => (
                                             <tr key={user?.id}>
-                                                <td>{user?.createdAt}</td>
-                                                <td>{user?.fuente}</td>
-                                                <td>{user?.proposito}</td>
-                                                <td>{user?.estatus}</td>
-                                                <td>{user?.motivo3}</td>
-                                                <td>{user?.observacion}</td>
+                                                <td>{new Date(user?.createdAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
+                                                <td>{new Date(user?.updatedAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
+                                                <td>{user?.tipo}</td>
+                                                <td>{user?.plan}</td>
+                                                <td>{user?.tiempo}</td>
+                                                <td>{user?.poliza}</td>
+                                                <td>{user?.fecha}</td>
+                                                <td>{user?.statusSuscripcion}</td>
+                                                <td><button><i class="fa-solid fa-pen-to-square"></i></button></td>
                                             </tr>
                                         ))
                                     }

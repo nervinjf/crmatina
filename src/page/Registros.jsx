@@ -8,14 +8,19 @@ import axios from 'axios';
 
 const Registros = () => {
 
-    // const [ get, setGet ] = useState([]);
+    const [getTomador, setGetTomador] = useState([]);
+    const [ numberFilter, getNumberFilter ] = useState(0);
+    const [ getTomadorFilter, setGetTomadorFilter ] = useState([])
 
-    const dispatch = useDispatch();
-    const get = useSelector(state => state.getform.data)
+    let tomadorFilter; 
 
     useEffect(() => {
-        dispatch(getRegistrosThunk())
-    }, [])
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+            .then(res => setGetTomador(res.data))
+
+        tomadorFilter = setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numberFilter)));
+        console.log(getTomadorFilter)
+    }, [numberFilter])
 
     // console.log(get)
 
@@ -23,69 +28,65 @@ const Registros = () => {
 
 
     return (
-        <div className='table-register'>
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Nombre Cliente</th>
-                    <th>Telefono</th>
-                    <th>Correo</th>
-                    <th>Dirección</th>
-                    <th>Fecha</th>
-                    <th>Fuente</th>
-                    <th>Status</th>
-                    <th>Efectiva</th>
-                    <th>No Efectivo</th>
-                    <th>No Localizable</th>
-                    <th>Operador</th>
-                    <th>Intentos</th>
-                    <th>Appoiment Date</th>
-                    <th>Selle</th>
-                    <th>Claim</th>
-                    <th>Claim Number</th>
-                    <th>Compañía de Seguro</th>
-                    <th>Número de póliza</th>
-                    <th>CLAIM </th>
-                    <th>DOL</th>
-                    <th>Description</th>
-                    <th>Nota</th>
-                </tr>
-            </thead>
-                    <tbody>
-                        {/* {
-                            // get.data?.map(gett => (
-                            //     <tr key={gett.id}>
-                            // <th>{gett.id}</th>
-                            // <th>{gett.nombre}</th>
-                            // <th>{gett.telefono}</th>
-                            // <th>{gett.correo}</th>
-                            // <th>{gett.direccion}</th>
-                            // <th>{new Date(gett?.fechatime).toLocaleString('es-VE', { timeZone: 'UTC' })}</th>
-                            // <th>{gett.fuente}</th>
-                            // <th>{gett.status}</th>
-                            // <th>{gett.efectiva}</th>
-                            // <th>{gett.noefectiva}</th>
-                            // <th>{gett.nolocalizable}</th>
-                            // <th>{gett.operador}</th>
-                            // <th>{gett.intentos}</th>
-                            // <th>{new Date(gett?.appoimentdate).toLocaleString('es-VE', { timeZone: 'UTC' })}</th>
-                            // <th>{gett.selle}</th>
-                            // <th>{gett.claim}</th>
-                            // <th>{gett.claimnumber}</th>
-                            // <th>{gett.companiaseguro}</th>
-                            // <th>{gett.numerop}</th>
-                            // <th>{gett.claimp}</th>
-                            // <th>{gett.dol}</th>
-                            // <th>{gett.description}</th>
-                            // <th>{gett.nota}</th>
-                        </tr>
-                            ))
-                        } */}
-                        
-                    </tbody>
-        </Table>
+        <>
+        <div className='table-register-filter'>
+            <h3>Filtros</h3>
+            <div className='table-register-filter-items'>
+                <p>Contactos: </p>
+                <select name="" id="" onChange={e => getNumberFilter(e.target.value)}>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
         </div>
+        <div className='table-register'>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>CI</th>
+                        <th>Correo</th>
+                        <th>phone1</th>
+                        <th>phone2</th>
+                        <th>phone3</th>
+                        <th>Direccion</th>
+                        <th>Direccion2</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Patologia</th>
+                        <th>Medicamentos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        getTomadorFilter?.map(gett => (
+                            <tr key={gett.id}>
+                                <th>{gett.firstname}</th>
+                                <th>{gett.lastname}</th>
+                                <th>{gett.ci}</th>
+                                <th>{gett.email}</th>
+                                {/* <th>{new Date(gett?.fechatime).toLocaleString('es-VE', { timeZone: 'UTC' })}</th> */}
+                                <th>{gett.phone1}</th>
+                                <th>{gett.phone2}</th>
+                                <th>{gett.phone3}</th>
+                                <th>{gett.address1}</th>
+                                <th>{gett.address2}</th>
+                                <th>{gett.fNacimiento}</th>
+                                <th>{gett.patologia}</th>
+                                <th>{gett.medicamentos}</th>
+                                
+                            </tr>
+                        ))
+                    }
+
+                </tbody>
+            </Table>
+        </div>
+        </>
     );
 };
 

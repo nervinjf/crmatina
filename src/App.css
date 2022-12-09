@@ -7,6 +7,23 @@
   overflow-y: scroll;
 }
 
+.table-register-filter{
+  margin: 25px 45px;
+  width: auto;
+}
+
+.table-register-filter-items{
+  display: flex;
+  gap: 1rem;
+  font-size: 1.3rem;
+  align-items: center;
+}
+
+.table-register-filter-items select{
+  width: 8rem;
+  height: 2rem;
+}
+
 .contain-Form{
   display: flex;
   flex-direction: column;
@@ -437,4 +454,17 @@ form button:hover .btn-i-hidden{
 
 .contenedor-cita-coti-pla{
   margin-bottom: 5rem;
+}
+
+td button{
+  border: none;
+  background: #71dfbe;
+  border: 1px solid rgba(0 , 0, 0, 0.4);
+  border-radius: 0.3rem;
+}
+
+td button i{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
