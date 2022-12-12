@@ -183,6 +183,10 @@ const Cita = () => {
                                             <option value="Trimestral">Acompañado</option>
                                         </select>
                                     </div>
+                                    <div className='form-cita-register-cotizacion-check'>
+                                        <label htmlFor="check">Envio de Cotización: </label>
+                                        <input type="checkbox" />
+                                    </div>
                                 </div>
 
                             </div>

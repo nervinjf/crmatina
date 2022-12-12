@@ -468,3 +468,15 @@ td button i{
   align-items: center;
   justify-content: center;
 }
+
+.form-cita-register-cotizacion-check{
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.form-cita-register-cotizacion-check input{
+  width: 1.5rem;
+}
