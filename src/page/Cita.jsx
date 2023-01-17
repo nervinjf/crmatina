@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import AsyncSelect from 'react-select';
 import Table from 'react-bootstrap/Table';
+import Check from './Check';
+import CheckNull from './CheckNull';
 
 const Cita = () => {
 
@@ -14,6 +16,21 @@ const Cita = () => {
     const [infoPlan, setInfoPlan] = useState([]);
     const [getTomadorIdO, setGetTomadorIdO] = useState([]);
     const { register, handleSubmit, reset } = useForm();
+    const [userSelected, setUserSelected] = useState(null);
+    const [isCheck, setIsCheck] = useState(false);
+    const [isCheckNull, setIsCheckNull] = useState(false);
+
+    const selectRegister = (data) => {
+        setUserSelected(data)
+    }
+
+
+
+    useEffect(() => {
+        if (userSelected) {
+            reset(userSelected)
+        }
+    }, [userSelected]);
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
@@ -26,11 +43,38 @@ const Cita = () => {
     }, [])
 
     const registrarDatosCitas = (data) => {
-        const data2 = ({ ...data, "tomadorId": getTomadorId });
-        console.log(data2)
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
-            .catch(error => console.log(error.response))
-            .then(() => getUsers())
+        if (userSelected) {
+            const dataPut = { "statusSuscripcion": data.statusSuscripcion }
+            console.log(data.id)
+            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut)
+                .then(() => getUsers())
+
+        } else {
+
+            const data2 = ({ ...data, "tomadorId": getTomadorId });
+            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
+                .catch(error => {
+                    console.log(error.response)
+                    if (error.response.status === 400) {
+                        setIsCheckNull(true)
+                        setTimeout(() => {
+                            setIsCheckNull(false);
+                        }, "3500")
+                    }
+                })
+                .then(() => getUsers())
+                .finally(() => {
+                    setIsCheck(true)
+                    setTimeout(() => {
+                        setIsCheck(false);
+                    }, "3500")
+                })
+        }
+        clear()
+        setGetTomador([])
+    }
+
+    const clear = () => {
         reset({
             "codigo": "",
             "fecha": "",
@@ -47,7 +91,6 @@ const Cita = () => {
             "statusSuscripcion": "",
             "userId": ""
         })
-
     }
 
     let options = getTomador.map(elemento => {
@@ -71,6 +114,7 @@ const Cita = () => {
     useEffect(() => {
         axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${getTomadorId}`)
             .then(res => setGetTomadorIdO(res.data))
+            .then(res => console.log(res?.error))
     }, [getTomadorId])
 
     let value = 0;
@@ -80,10 +124,12 @@ const Cita = () => {
             infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1.000$", "Platinum - 2.000$"]) : "";
 
 
-    }, [infoTipo]);
+    }, [infoTipo && userSelected]);
 
     return (
         <div className=''>
+            {isCheck && <Check />}
+            {isCheckNull && <CheckNull />}
             <div className='title-form'>
                 <h1>Cita / Cotizacion</h1>
             </div>
@@ -163,24 +209,24 @@ const Cita = () => {
                                         {/* <label htmlFor="">Tiempo</label> */}
                                         <select name="" id="" {...register("statusSuscripcion")}>
                                             {/* <option value="">-- Seleccione el modo de la cita --</option> */}
-                                            <option value="Mensual">Proceso</option>
-                                            <option value="Trimestral">Concluido</option>
+                                            <option value="Proceso">Proceso</option>
+                                            <option value="Concluido">Concluido</option>
                                         </select>
                                     </div>
                                     <div className='form-cita-register-cotizacion'>
                                         {/* <label htmlFor="">Tiempo</label> */}
                                         <select name="" id="" {...register("modoCita")}>
                                             <option value="">-- Seleccione el modo de la cita --</option>
-                                            <option value="Mensual">Virtual</option>
-                                            <option value="Trimestral">Presencial</option>
+                                            <option value="Virtual">Virtual</option>
+                                            <option value="Presencial">Presencial</option>
                                         </select>
                                     </div>
                                     <div className='form-cita-register-cotizacion'>
                                         {/* <label htmlFor="">Tiempo</label> */}
                                         <select name="" id="" {...register("citaAcomp")}>
                                             <option value="">-- Seleccione el modo de la cita --</option>
-                                            <option value="Mensual">Solo</option>
-                                            <option value="Trimestral">Acompañado</option>
+                                            <option value="Solo">Solo</option>
+                                            <option value="Acompañado">Acompañado</option>
                                         </select>
                                     </div>
                                     <div className='form-cita-register-cotizacion-check'>
@@ -279,43 +325,43 @@ const Cita = () => {
                 </div>
             </div>
             <div className='contain-info-contacto'>
-                        <h4>Registro de Cita / Cotizacion</h4>
-                        <div className='contain-info-contacto-table'>
-                            <Table striped>
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Fecha Act.</th>
-                                        <th>Tipo de Poliza</th>
-                                        <th>Plan</th>
-                                        <th>Tiempo</th>
-                                        <th>Monto de poliza</th>
-                                        <th>Fec. Cita</th>
-                                        <th>Status</th>
-                                        <th>Editar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <h4>Registro de Cita / Cotizacion</h4>
+                <div className='contain-info-contacto-table'>
+                    <Table striped>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Fecha Act.</th>
+                                <th>Tipo de Poliza</th>
+                                <th>Plan</th>
+                                <th>Tiempo</th>
+                                <th>Monto de poliza</th>
+                                <th>Fec. Cita</th>
+                                <th>Status</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                    {
-                                        getTomadorIdO?.cita?.map(user => (
-                                            <tr key={user?.id}>
-                                                <td>{new Date(user?.createdAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
-                                                <td>{new Date(user?.updatedAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
-                                                <td>{user?.tipo}</td>
-                                                <td>{user?.plan}</td>
-                                                <td>{user?.tiempo}</td>
-                                                <td>{user?.poliza}</td>
-                                                <td>{user?.fecha}</td>
-                                                <td>{user?.statusSuscripcion}</td>
-                                                <td><button><i class="fa-solid fa-pen-to-square"></i></button></td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </Table>
-                        </div>
-                    </div>
+                            {
+                                getTomadorIdO?.cita?.map(user => (
+                                    <tr key={user?.id}>
+                                        <td>{new Date(user?.createdAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
+                                        <td>{new Date(user?.updatedAt).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
+                                        <td>{user?.tipo}</td>
+                                        <td>{user?.plan}</td>
+                                        <td>{user?.tiempo}</td>
+                                        <td>{user?.poliza}</td>
+                                        <td>{new Date(user?.fecha).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
+                                        <td>{user?.statusSuscripcion}</td>
+                                        <td><button onClick={() => selectRegister(user)}><i class="fa-solid fa-pen-to-square"></i></button></td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </Table>
+                </div>
+            </div>
         </div>
     );
 };

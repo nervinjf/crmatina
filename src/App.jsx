@@ -9,10 +9,16 @@ import Registros from './page/Registros';
 import Registrar from './page/Registrar';
 import Home from './page/Home';
 import Calendar from './page/Calendar'
+import TomadorDetails from './page/TomadorDetails';
 
 
 function App() {
 
+  const [ userSelected, setUserSelected ] = useState(null);
+
+  const selectRegister = (data) => {
+    setUserSelected(data)
+  }
  
 
   return (
@@ -23,7 +29,8 @@ function App() {
       <Route path='/' element={<Home />}/>
       <Route path='/registrar' element={<Registrar />}/>
       <Route path='/registros' element={<Registros />}/>
-      <Route path='/calendar' element={<Calendar />}/>
+      {/* <Route path='/calendar' element={<Calendar />}/> */}
+      <Route path="/tomadordetails/:id" element={<TomadorDetails />}/>
     </Routes>
    </HashRouter>
    </div>

@@ -4,13 +4,17 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { getRegistros, getRegistrosThunk } from '../store/slice/getForm.slice';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // import { getDefaultMiddleware } from 'react-redux/toolkit';
 
 const Registros = () => {
 
+    const navigate = useNavigate();
+
     const [getTomador, setGetTomador] = useState([]);
     const [ numberFilter, getNumberFilter ] = useState(0);
     const [ getTomadorFilter, setGetTomadorFilter ] = useState([])
+    const [ getIdTomador, setGetIdToamdor ] = useState(null);
 
     let tomadorFilter; 
 
@@ -65,7 +69,7 @@ const Registros = () => {
                     {
                         getTomadorFilter?.map(gett => (
                             <tr key={gett.id}>
-                                <th>{gett.firstname}</th>
+                                <th onClick={() => navigate(`/tomadordetails/${gett.id}`)}>{gett.firstname}</th>
                                 <th>{gett.lastname}</th>
                                 <th>{gett.ci}</th>
                                 <th>{gett.email}</th>
