@@ -12,7 +12,7 @@ const Registros = () => {
     const navigate = useNavigate();
 
     const [getTomador, setGetTomador] = useState([]);
-    const [ numberFilter, getNumberFilter ] = useState(0);
+    const [ numberFilter, setNumberFilter ] = useState(0);
     const [ getTomadorFilter, setGetTomadorFilter ] = useState([])
     const [ getIdTomador, setGetIdToamdor ] = useState(null);
 
@@ -24,7 +24,7 @@ const Registros = () => {
 
         tomadorFilter = setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numberFilter)));
         console.log(getTomadorFilter)
-    }, [numberFilter])
+    }, [numberFilter || getTomador ])
 
     // console.log(get)
 
@@ -37,7 +37,7 @@ const Registros = () => {
             <h3>Filtros</h3>
             <div className='table-register-filter-items'>
                 <p>Contactos: </p>
-                <select name="" id="" onChange={e => getNumberFilter(e.target.value)}>
+                <select name="" id="" onChange={e => setNumberFilter(e.target.value)}>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
