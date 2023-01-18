@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@handsontable/react": "^12.3.0",
     "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
+    "handsontable": "^12.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
@@ -19,7 +21,8 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-select": "^5.7.0",
-    "react-select-search": "^4.1.6"
+    "react-select-search": "^4.1.6",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

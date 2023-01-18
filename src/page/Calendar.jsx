@@ -1,44 +1,76 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { HotColumn, HotTable } from '@handsontable/react';
+import "handsontable/dist/handsontable.full.css";
+import { registerAllModules } from 'handsontable/registry';
+import { registerLanguageDictionary, esMX } from 'handsontable/i18n';
 
-const Calendar = (props) => {
+const Calendar = () => {
 
-    // const gapi = window.gapi
-    // const CLIENT_ID = '1043115899977-i8jdand7vv9hmpnipg0r2e6s7um34lj4.apps.googleusercontent.com';
-    // const API_KEY = 'AIzaSyBO1WWFD18dvVgQzKDAEDnuGTSOV4GFRzw';
-    // // Tu secreto del cliente =  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
-    // const DISCOVERY_DOC = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
-    // const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+  const [getTomador, setGetTomador] = useState([]);
 
-    // const handleClick = () => {
-    //     gapi?.load('Client:auth2', () => {
-    //         console.log("loaded client")
+  useEffect(() => {
+    axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto')
+      .then(res => setGetTomador(res.data))
+  }, [])
 
-    //         gapi.client.init({
-    //             apiKey: API_KEY,
-    //             clientId: CLIENT_ID,
-    //             discoveryDocs: DISCOVERY_DOC,
-    //             scope: SCOPES
-    //         })
+  
 
-    //         gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+  registerAllModules();
+  registerLanguageDictionary(esMX)
 
-    //         gapi.auth2.getAuthInstance().singIn()
-    //     })
-    // }
+  const hotTableComponent = React.useRef(null);
 
-    /* exported gapiLoaded */
-      /* exported gisLoaded */
-      /* exported handleAuthClick */
-      /* exported handleSignoutClick */
-    
-    const {
-      iframeSource = '<iframe src="https://calendar.google.com/calendar/embed?src=nervinjflores%40gmail.com&ctz=America%2FCaracas" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>'
-    } = props;
-    return (
-        <div
-            dangerouslySetInnerHTML={{__html: iframeSource}}>
-        </div>
-    );
+  const descargarArchivo = () =>{
+    const pluginDescarga = hotTableComponent.current.hotInstance.getPlugin("exportFile");
+
+    pluginDescarga.downloadFile("csv", { 
+      filename: "Report",
+      fileExtension: "csv",
+      MimeType: "text/csv",
+      columnHeaders: true,
+     })
+  }
+
+
+  return (
+    <>
+      <h1>Hola Gente</h1>
+      <button onClick={() => descargarArchivo()}>Descargar Archivo</button>
+      {
+        getTomador && 
+        <HotTable
+          ref={hotTableComponent}
+          data={getTomador}
+          language={esMX.languageCode}
+          licenseKey="non-commercial-and-evaluation"
+          colHeaders={true}
+          rowHeaders={true}
+          columnSorting={true}
+          mergeCells={true}
+          contextMenu={true}
+          filters={true}
+          dropdownMenu={true}
+        >
+          <HotColumn data="origen" title='Origen'/>
+          <HotColumn data="fuente" title='Fuente'/>
+          <HotColumn data="proposito" title='proposito'/>
+          <HotColumn data="estatus" title='estatus'/>
+          <HotColumn data="motivo1" title='motivo1'/>
+          <HotColumn data="motivo2" title='motivo2'/>
+          <HotColumn data="motivo3" title='motivo3'/>
+          <HotColumn data="observacion" title='observacion'/>
+          <HotColumn data="tomador.firstname" title='Nombre'/>
+          <HotColumn data="tomador.lastname" title='Apellido'/>
+          <HotColumn data="tomador.ci" title='CI'/>
+
+
+
+
+        </HotTable>
+      }
+    </>
+  );
 };
 
 export default Calendar;

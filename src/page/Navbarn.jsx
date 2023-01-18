@@ -15,7 +15,7 @@ const Navbarn = () => {
             <Nav.Link as={Link} to='/' >Home</Nav.Link>
             <Nav.Link as={Link} to="/Registrar" >Registrar</Nav.Link>
             <Nav.Link as={Link} to="/Registros" >Registros</Nav.Link>
-            <Nav.Link as={Link} to="/calendar" >calendar</Nav.Link>
+            <Nav.Link as={Link} to="/calendar" >Reportes</Nav.Link>
             {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}
           </Nav>
         </Container>

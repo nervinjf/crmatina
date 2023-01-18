@@ -29,7 +29,7 @@ function App() {
       <Route path='/' element={<Home />}/>
       <Route path='/registrar' element={<Registrar />}/>
       <Route path='/registros' element={<Registros />}/>
-      {/* <Route path='/calendar' element={<Calendar />}/> */}
+      <Route path='/calendar' element={<Calendar />}/>
       <Route path="/tomadordetails/:id" element={<TomadorDetails />}/>
     </Routes>
    </HashRouter>
