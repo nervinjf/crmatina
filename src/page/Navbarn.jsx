@@ -13,7 +13,7 @@ const Navbarn = () => {
           {/* <Navbar.Brand to='/'><div className='logo'><img src={} alt="" width="100px"/></div></Navbar.Brand> */}
           <Nav className="me-auto">
             <Nav.Link as={Link} to='/' >Home</Nav.Link>
-            <Nav.Link as={Link} to="/Registrar" >Registrar</Nav.Link>
+            <Nav.Link as={Link} to="/Registrar" >Registrar-Tomador</Nav.Link>
             <Nav.Link as={Link} to="/Registros" >Registros</Nav.Link>
             <Nav.Link as={Link} to="/calendar" >Reportes</Nav.Link>
             {/* <Nav.Link href="#pricing">Pricing</Nav.Link> */}

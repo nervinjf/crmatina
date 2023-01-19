@@ -2,11 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import Check from './Check';
+import CheckNull from './CheckNull';
 
 const Tomador = () => {
 
     const [getUsuario, setGetUsuario] = useState([]);
     const { register, handleSubmit, reset } = useForm();
+    const [isCheck, setIsCheck] = useState(false);
+    const [isCheckNull, setIsCheckNull] = useState(false);
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
@@ -15,7 +19,28 @@ const Tomador = () => {
 
     const registrarDatosTomador = (data) => {
         axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data)
-            .catch(error => console.log(error.response))
+        .catch(error => {
+            console.log(error.response)
+            if (error.response.status === 400) {
+                setIsCheckNull(true)
+                setTimeout(() => {
+                    setIsCheckNull(false);
+                }, "3500")
+                setTimeout(() => {
+                    setRegisterCitaC(false);
+                }, "3550")
+            }
+        })
+        .then(() => getUsers())
+        .finally(() => {
+            setIsCheck(true)
+            setTimeout(() => {
+                setIsCheck(false);
+            }, "3500")
+            setTimeout(() => {
+                setRegisterCitaC(false);
+            }, "3550")
+        })
         reset({
             "firstname": "",
             "lastname": "",
@@ -37,6 +62,8 @@ const Tomador = () => {
         <div>
             <div>
                 <h1>Tomador</h1>
+                {isCheck && <Check />}
+                {isCheckNull && <CheckNull />}
             </div>
             <div className='contain-Form'>
                 <form onSubmit={handleSubmit(registrarDatosTomador)}>
