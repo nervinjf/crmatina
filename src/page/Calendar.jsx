@@ -7,6 +7,7 @@ import { registerLanguageDictionary, esMX } from 'handsontable/i18n';
 import ReportContact from './ReportContact';
 import ReportCita from './ReportCita';
 import ReportTomador from './ReportTomador';
+import ReportCotiz from './ReportCotiz';
 
 const Calendar = () => {
 
@@ -41,13 +42,15 @@ const Calendar = () => {
   return (
     <div className='Container-report'>
       <div className='Container-report-select'>
-        <button onClick={() => setButtonR("cita")}>Cita / Cotizacion</button>
+        <button onClick={() => setButtonR("cita")}>Cita</button>
+        <button onClick={() => setButtonR("cotiza")}>Cotizacion</button>
         <button onClick={() => setButtonR("contact")}>Contacto</button>
         <button onClick={() => setButtonR("tomador")}>Tomador</button>
       </div>
       <div>
         {
            buttonR === "cita" ? <ReportCita /> : 
+           buttonR === "cotiza" ? <ReportCotiz /> : 
            buttonR === "tomador" ? <ReportTomador /> : 
            buttonR === "contact" ? <ReportContact /> : ""           
         }

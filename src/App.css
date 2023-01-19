@@ -664,7 +664,8 @@ td button i {
 
 .container-report-table-button{
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
   border: none;
 }
 .container-report-table-button i{
@@ -686,4 +687,18 @@ td button i {
 
 .register-tomador{
   padding: 2rem;
+}
+
+.container-report-table-button-filter{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.container-report-table-button-filter select{
+  width: 10rem;
+}
+
+.container-report-table-filter{
+  display: flex;
+  gap: 0.3rem;
 }

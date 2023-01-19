@@ -57,17 +57,17 @@ const ReportContact = () => {
                     dropdownMenu={true}
 
                 >
-                    <HotColumn data="origen" title='Origen' />
-                    <HotColumn data="fuente" title='Fuente' />
-                    <HotColumn data="proposito" title='proposito' />
-                    <HotColumn data="estatus" title='estatus' />
-                    <HotColumn data="motivo1" title='motivo1' />
-                    <HotColumn data="motivo2" title='motivo2' />
-                    <HotColumn data="motivo3" title='motivo3' />
-                    <HotColumn data="observacion" title='observacion' />
-                    <HotColumn data="tomador.firstname" title='Nombre' />
-                    <HotColumn data="tomador.lastname" title='Apellido' />
-                    <HotColumn data="tomador.ci" title='CI' />
+                    <HotColumn data="origen" title='Origen' readOnly={true}/>
+                    <HotColumn data="fuente" title='Fuente' readOnly={true}/>
+                    <HotColumn data="proposito" title='proposito' readOnly={true}/>
+                    <HotColumn data="estatus" title='estatus' readOnly={true}/>
+                    <HotColumn data="motivo1" title='motivo1' readOnly={true}/>
+                    <HotColumn data="motivo2" title='motivo2' readOnly={true}/>
+                    <HotColumn data="motivo3" title='motivo3' readOnly={true}/>
+                    <HotColumn data="observacion" title='observacion' readOnly={true}/>
+                    <HotColumn data="tomador.firstname" title='Nombre' readOnly={true}/>
+                    <HotColumn data="tomador.lastname" title='Apellido' readOnly={true}/>
+                    <HotColumn data="tomador.ci" title='CI' readOnly={true}/>
 
 
 

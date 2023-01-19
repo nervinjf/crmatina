@@ -57,22 +57,17 @@ const ReportCita = () => {
                     dropdownMenu={true}
 
                 >
-                    <HotColumn data="codigo" title='Codigo' />
-                    <HotColumn data="fecha" title='Fecha' />
-                    <HotColumn data="tipo" title='Tipo' />
-                    <HotColumn data="plan" title='Plan' />
-                    <HotColumn data="asegurados" title='Asegurados' />
-                    <HotColumn data="fPago" title='Fecha Pago' />
-                    <HotColumn data="efectivo" title='Efectivo' />
-                    <HotColumn data="tiempo" title='Tiempo' />
-                    <HotColumn data="fCliente" title='Fecha Cliente' />
-                    <HotColumn data="fDevolucion" title='Fecha Devolucion' />
-                    <HotColumn data="poliza" title='Poliza' />
-                    <HotColumn data="statusSuscripcion" title='Status Suscripcion' />
-                    <HotColumn data="tomador.firstname" title='Nombre' />
-                    <HotColumn data="tomador.lastname" title='Apellido' />
-                    <HotColumn data="tomador.ci" title='CI' />
-                    <HotColumn data="Users.firstname" title='Usuario' />
+                    <HotColumn data="tomador.firstname" title='Nombre' readOnly={true}/>
+                    <HotColumn data="tomador.lastname" title='Apellido' readOnly={true}/>
+                    <HotColumn data="tomador.ci" title='CI' readOnly={true}/>
+                    <HotColumn data="fecha" title='Fecha Cita' readOnly={true}/>
+                    <HotColumn data="statusSuscripcion" title='Status Suscripcion' readOnly={true}/>
+                    <HotColumn data="modoCita" title='Modalidad Cita' readOnly={true}/>
+                    <HotColumn data="citaAcomp" title='Acompañantes' readOnly={true}/>
+                    <HotColumn data="enviaCotiza" title='Envio Cotizacion' readOnly={true}/>
+                    <HotColumn data="fCliente" title='Fecha envio planilla' readOnly={true}/>
+                    <HotColumn data="fDevolucion" title='Fecha devolucion planilla' readOnly={true}/>
+                    <HotColumn data="Users.firstname" title='Usuario' readOnly={true}/>
 
 
 

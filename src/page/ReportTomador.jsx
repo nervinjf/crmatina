@@ -50,27 +50,27 @@ const ReportTomador = () => {
                     colHeaders={true}
                     rowHeaders={true}
                     columnSorting={true}
-                    mergeCells={true}
-                    contextMenu={true}
+                    // mergeCells={true}
+                    // contextMenu={true}
                     // filters={true}
                     filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
                         "not_between", "not_contains", "not_empty", "neq"]}
                     dropdownMenu={true}
 
                 >
-                    <HotColumn data="id" title='id' />
-                    <HotColumn data="firstname" title='Nombre' />
-                    <HotColumn data="lastname" title='Apellido' />
-                    <HotColumn data="ci" title='Cedula' />
-                    <HotColumn data="email" title='Correo' />
-                    <HotColumn data="phone1" title='Telefono' />
-                    <HotColumn data="phone2" title='Telefono 2' />
-                    <HotColumn data="phone3" title='Telefono 3' />
-                    <HotColumn data="address1" title='Direccion' />
-                    <HotColumn data="address1" title='Direccion 2' />
-                    <HotColumn data="fNacimiento" title='Fecha Nacimiento' />
-                    <HotColumn data="patologia" title='Patologia' />
-                    <HotColumn data="medicamentos" title='Medicamentos' />
+                    <HotColumn data="id" title='id' readOnly={true}/>
+                    <HotColumn data="firstname" title='Nombre' readOnly={true}/>
+                    <HotColumn data="lastname" title='Apellido' readOnly={true}/>
+                    <HotColumn data="ci" title='Cedula' readOnly={true}/>
+                    <HotColumn data="email" title='Correo' readOnly={true}/>
+                    <HotColumn data="phone1" title='Telefono' readOnly={true}/>
+                    <HotColumn data="phone2" title='Telefono 2' readOnly={true}/>
+                    <HotColumn data="phone3" title='Telefono 3' readOnly={true}/>
+                    <HotColumn data="address1" title='Direccion' readOnly={true}/>
+                    <HotColumn data="address1" title='Direccion 2' readOnly={true}/>
+                    <HotColumn data="fNacimiento" title='Fecha Nacimiento' readOnly={true}/>
+                    <HotColumn data="patologia" title='Patologia' readOnly={true}/>
+                    <HotColumn data="medicamentos" title='Medicamentos' readOnly={true}/>
 
 
 
