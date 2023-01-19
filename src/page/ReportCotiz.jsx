@@ -10,9 +10,14 @@ const ReportCotiz = () => {
     const [getTomador, setGetTomador] = useState([]);
     const [getFilterT, setGetFilterT] = useState([]);
     const [getFilterP, setGetFilterP] = useState([]);
+    const [ test, setTest ] = useState(true)
     const [getFilterTipo, setGetFilterTipo] = useState("");
     const [getFilterPlan, setGetFilterPlan] = useState("");
     const [getFilterPlan2, setGetFilterPlan2] = useState([]);
+    const [ getFilterFD, setGetFilterFD ] = useState("")
+    const [ getFilterFH, setGetFilterFH ] = useState("")
+    const [ getFilterFecha, setGetFilterFecha ] = useState([])
+    const [ getFilterFechaALL, setGetFilterFechaALL ] = useState([])
 
 
     useEffect(() => {
@@ -22,13 +27,19 @@ const ReportCotiz = () => {
         setGetFilterT(getTomador.filter(e => e.tipo === getFilterTipo))
         setGetFilterP(getTomador.filter(e => e.plan === getFilterPlan))
         setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
+        const filteredPrice = getTomador.filter(fecha => fecha.createdAt > getFilterFD && fecha.createdAt < getFilterFH)
+        setGetFilterFechaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt > getFilterFD && fecha.createdAt < getFilterFH))
 
-        console.log(getFilterPlan2)
+        setGetFilterFecha(filteredPrice)
+        console.log(getFilterFecha)
 
+    }, [test])
 
-    }, [getFilterPlan2 || getFilterTipo || getFilterPlan ])
+    setInterval(() => {
+        setTest(test != true ? true : false);
+    }, "2000")
 
-
+    
 
     registerAllModules();
     registerLanguageDictionary(esMX)
@@ -45,6 +56,12 @@ const ReportCotiz = () => {
             columnHeaders: true,
         })
     }
+
+
+        
+ 
+
+
     return (
         <div className='container-report-table'>
             <div className='container-report-table-button'>
@@ -65,6 +82,12 @@ const ReportCotiz = () => {
                             <option value="Elite - 200.000$">Elite - 200.000$</option>
                         </select>
                     </div>
+                    <div className='container-report-table-filter'>
+                        <label htmlFor="filter">De: </label>
+                        <input type="date" onChange={(e) => setGetFilterFD(e.target.value)}/>
+                        <label htmlFor="filter">Hasta: </label>
+                        <input type="date" onChange={(e) => setGetFilterFH(e.target.value)}/>
+                    </div>
                 </div>
                 <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
@@ -73,7 +96,10 @@ const ReportCotiz = () => {
                     getTomador &&
                     <HotTable
                         ref={hotTableComponent}
-                        data={ getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
+                        data={ 
+                            getFilterTipo !== "" && getFilterPlan !== "" && getFilterFD !== "" && getFilterFH !== "" ? getFilterFechaALL :
+                            getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
+                                getFilterFD !== "" && getFilterFH !== "" ? getFilterFecha :
                                 getFilterTipo !== "" ? getFilterT :
                                 getFilterPlan !== "" ? getFilterP : getTomador 
                              }
