@@ -638,3 +638,48 @@ td button i {
 }
 
 /* fin loading */
+
+.Container-report{
+  padding: 2rem;
+}
+
+.Container-report-select{
+    width: 100%;
+}
+
+.Container-report-select button{
+  margin: 0;
+  border: 0.2rem solid rgba(0, 0, 0, 0.7);
+  width: 10rem;
+  background: #fff;
+  font-weight: 600;
+  border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.container-report-table{
+ border: 0.2rem solid rgba(0, 0, 0, 0.7);
+ height: 40rem;
+ padding: 1rem;
+}
+
+.container-report-table-button{
+  display: flex;
+  justify-content: end;
+  border: none;
+}
+.container-report-table-button i{
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.container-report-table-button i button{
+  border: none;
+}
+
+.container-report-table-t{
+ height: 90%;
+ width: 100%;
+ overflow-y: scroll;
+
+}
