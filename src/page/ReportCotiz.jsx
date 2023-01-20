@@ -10,14 +10,14 @@ const ReportCotiz = () => {
     const [getTomador, setGetTomador] = useState([]);
     const [getFilterT, setGetFilterT] = useState([]);
     const [getFilterP, setGetFilterP] = useState([]);
-    const [ test, setTest ] = useState(true)
+    const [test, setTest] = useState(true)
     const [getFilterTipo, setGetFilterTipo] = useState("");
     const [getFilterPlan, setGetFilterPlan] = useState("");
     const [getFilterPlan2, setGetFilterPlan2] = useState([]);
-    const [ getFilterFD, setGetFilterFD ] = useState("")
-    const [ getFilterFH, setGetFilterFH ] = useState("")
-    const [ getFilterFecha, setGetFilterFecha ] = useState([])
-    const [ getFilterFechaALL, setGetFilterFechaALL ] = useState([])
+    const [getFilterFD, setGetFilterFD] = useState("")
+    const [getFilterFH, setGetFilterFH] = useState("")
+    const [getFilterFecha, setGetFilterFecha] = useState([])
+    const [getFilterFechaALL, setGetFilterFechaALL] = useState([])
 
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const ReportCotiz = () => {
         setTest(test != true ? true : false);
     }, "2000")
 
-    
+
 
     registerAllModules();
     registerLanguageDictionary(esMX)
@@ -58,8 +58,8 @@ const ReportCotiz = () => {
     }
 
 
-        
- 
+
+
 
 
     return (
@@ -82,11 +82,15 @@ const ReportCotiz = () => {
                             <option value="Elite - 200.000$">Elite - 200.000$</option>
                         </select>
                     </div>
-                    <div className='container-report-table-filter'>
-                        <label htmlFor="filter">De: </label>
-                        <input type="date" onChange={(e) => setGetFilterFD(e.target.value)}/>
-                        <label htmlFor="filter">Hasta: </label>
-                        <input type="date" onChange={(e) => setGetFilterFH(e.target.value)}/>
+                    <div className='container-report-table-filter-f'>
+                        <div className='gapp'>
+                            <label htmlFor="filter">De: </label>
+                            <input type="date" onChange={(e) => setGetFilterFD(e.target.value)} />
+                        </div>
+                        <div className='gapp'>
+                            <label htmlFor="filter">Hasta: </label>
+                            <input type="date" onChange={(e) => setGetFilterFH(e.target.value)} />
+                        </div>
                     </div>
                 </div>
                 <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
@@ -96,13 +100,13 @@ const ReportCotiz = () => {
                     getTomador &&
                     <HotTable
                         ref={hotTableComponent}
-                        data={ 
+                        data={
                             getFilterTipo !== "" && getFilterPlan !== "" && getFilterFD !== "" && getFilterFH !== "" ? getFilterFechaALL :
-                            getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
-                                getFilterFD !== "" && getFilterFH !== "" ? getFilterFecha :
-                                getFilterTipo !== "" ? getFilterT :
-                                getFilterPlan !== "" ? getFilterP : getTomador 
-                             }
+                                getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
+                                    getFilterFD !== "" && getFilterFH !== "" ? getFilterFecha :
+                                        getFilterTipo !== "" ? getFilterT :
+                                            getFilterPlan !== "" ? getFilterP : getTomador
+                        }
                         language={esMX.languageCode}
                         licenseKey="non-commercial-and-evaluation"
                         colHeaders={true}
