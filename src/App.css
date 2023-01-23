@@ -658,7 +658,7 @@ td button i {
 
 .container-report-table{
  border: 0.2rem solid rgba(0, 0, 0, 0.7);
- height: 42rem;
+ height: 43rem;
  padding: 1rem;
 }
 
@@ -728,4 +728,25 @@ td button i {
   justify-content: space-between;
   width: 10rem;
   height: 1.5rem;
+}
+
+.count-length-datos{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  font-weight: 600;
+  align-items: flex-start;
+}
+.count-length-datos h5{
+ margin: 0;
+}
+.count-length-datos p{
+  margin: 0;
+}
+
+.acomodar input{
+  width: 9rem;
+  height: 1.5rem;
+  text-align: end;
+  padding: 0rem 0.3rem;
 }

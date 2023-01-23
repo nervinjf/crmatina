@@ -235,6 +235,10 @@ const ReportCotiz = () => {
                     </HotTable>
                 }
             </div>
+            <div className='count-length-datos'>
+                <h5>Count:</h5>
+                <p>{dataFilter === getTomador ? getTomador.length : dataFilter.length}</p>
+            </div>
         </div>
     );
 };

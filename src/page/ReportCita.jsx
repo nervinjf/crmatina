@@ -8,11 +8,80 @@ import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
 const ReportCita = () => {
 
     const [getTomador, setGetTomador] = useState([]);
+    const [test, setTest] = useState(true)
+    const [getFilterStatus, setGetFilterStatus] = useState("");
+    const [getFilterPlan, setGetFilterPlan] = useState("");
+    const [getFilterFD, setGetFilterFD] = useState("")
+    const [getFilterFH, setGetFilterFH] = useState("")
+    const [getFilterCedula, setGetFilterCedula] = useState("")
+    const [getFilterCita, setGetFilterCita] = useState(false)
+    const [getFilterCotizacion, setGetFilterCotizacion] = useState(false)
+    const [ dataFilter, setDataFilter] = useState([]);
+
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/cita')
-            .then(res => setGetTomador(res.data))
-    }, [])
+        
+        if(getTomador !== ""){
+            setDataFilter(getTomador)
+        }
+
+    }, [test])
+
+    console.log(dataFilter)
+
+    useEffect(() => {
+        
+        if (getFilterCedula !== "") {
+            setDataFilter(dataFilter?.filter(e => Number(e.tomador.ci) === Number(getFilterCedula)))
+        }
+
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterStatus) {
+            setDataFilter(dataFilter.filter(e => e.statusSuscripcion === getFilterStatus))
+        }
+
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterPlan){
+            setDataFilter(dataFilter.filter(e => e.plan === getFilterPlan))
+        }
+
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterFH){
+            setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        }
+
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterCita){
+            setDataFilter(dataFilter.filter((e => e.fecha)))
+        }
+
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterCotizacion){
+            setDataFilter(dataFilter.filter((e => e.enviaCotiza)))
+        }
+
+    }, [test])
+
+    setTimeout(() => {
+        setTest(test != true ? true : false);
+    }, "1800")
+    
+
 
 
 
@@ -32,18 +101,74 @@ const ReportCita = () => {
         })
     }
 
+    useEffect(() => {
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/cita')
+            .then(res => setGetTomador(res.data))
+        // setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
+        // const filteredPrice = getTomador.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH)
+        // setGetFilterFechaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        // setGetFilterCitaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
+        // setGetFilterCitaSnPlan(getTomador.filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
+        // setGetFilterC(getTomador.filter(e => e.fecha))
+
+        // setGetFilterFecha(filteredPrice)
+      
+        // console.log(getFilterCitaALL)
+
+    }, [])
+
 
     return (
         <div className='container-report-table'>
             <div className='container-report-table-button'>
-            <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i> 
+                <div className='container-report-table-button-filter'>
+                    <div className='container-report-table-filter'>
+                        <label htmlFor="filter">Status: </label>
+                        <select name="" id="" onChange={(e) => setGetFilterStatus(e.target.value)}>
+                            <option value="">--Seleccione tipo de Poliza--</option>
+                            <option value="Proceso">Proceso</option>
+                            <option value="Concluido">Concluido</option>
+                        </select>
+                    </div>
+                    <div className='container-report-table-filter'>
+                        <label htmlFor="filter">Plan: </label>
+                        <select name="" id="" onChange={(e) => setGetFilterPlan(e.target.value)}>
+                            <option value="">--Seleccione tipo de Poliza--</option>
+                            <option value="Premium - 50.000$">Premium - 50.000$</option>
+                            <option value="Elite - 200.000$">Elite - 200.000$</option>
+                        </select>
+                    </div>
+                    <div className='container-report-table-filter-f'>
+                        <div className='gapp'>
+                            <label htmlFor="filter">De: </label>
+                            <input type="date" onChange={(e) => setGetFilterFD(e.target.value)} />
+                        </div>
+                        <div className='gapp'>
+                            <label htmlFor="filter">Hasta: </label>
+                            <input type="date" onChange={(e) => setGetFilterFH(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className='container-report-table-filter'>
+                            <label htmlFor="filter">Cita:</label>
+                            <input type="checkbox" onChange={(e) => setGetFilterCita(e.target.checked)} />
+                    </div>
+                    <div className='container-report-table-filter'>
+                            <label htmlFor="filter">Cotizacion:</label>
+                            <input type="checkbox" onChange={(e) => setGetFilterCotizacion(e.target.checked)} />
+                    </div>
+                    <div className='container-report-table-filter acomodar'>
+                            <label htmlFor="filter">Cedula:</label>
+                            <input type="text" value={getFilterCedula} onChange={(e) => setGetFilterCedula(e.target.value)} />
+                    </div>
+                </div>
+                <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
             <div className='container-report-table-t'>
             {
                 getTomador &&
                 <HotTable
                     ref={hotTableComponent}
-                    data={getTomador}
+                    data={dataFilter === getTomador ? getTomador : dataFilter}
                     language={esMX.languageCode}
                     licenseKey="non-commercial-and-evaluation"
                     colHeaders={true}
@@ -67,6 +192,7 @@ const ReportCita = () => {
                     <HotColumn data="enviaCotiza" title='Envio Cotizacion' readOnly={true}/>
                     <HotColumn data="fCliente" title='Fecha envio planilla' readOnly={true}/>
                     <HotColumn data="fDevolucion" title='Fecha devolucion planilla' readOnly={true}/>
+                    <HotColumn data="poliza" title='Monto Poliza' readOnly={true}/>
                     <HotColumn data="Users.firstname" title='Usuario' readOnly={true}/>
 
 
@@ -74,6 +200,10 @@ const ReportCita = () => {
 
                 </HotTable>
             }
+            </div>
+            <div className='count-length-datos'>
+                <h5>Count:</h5>
+                <p>{dataFilter === getTomador ? getTomador?.length : dataFilter?.length}</p>
             </div>
         </div>
     );
