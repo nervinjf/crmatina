@@ -8,36 +8,114 @@ import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
 const ReportCotiz = () => {
 
     const [getTomador, setGetTomador] = useState([]);
-    const [getFilterT, setGetFilterT] = useState([]);
-    const [getFilterP, setGetFilterP] = useState([]);
     const [test, setTest] = useState(true)
+    const [test2, setTest2] = useState(true)
+    const [test3, setTest3] = useState(true)
+    const [test4, setTest4] = useState(true)
+    const [test5, setTest5] = useState(true)
     const [getFilterTipo, setGetFilterTipo] = useState("");
     const [getFilterPlan, setGetFilterPlan] = useState("");
-    const [getFilterPlan2, setGetFilterPlan2] = useState([]);
     const [getFilterFD, setGetFilterFD] = useState("")
     const [getFilterFH, setGetFilterFH] = useState("")
-    const [getFilterFecha, setGetFilterFecha] = useState([])
-    const [getFilterFechaALL, setGetFilterFechaALL] = useState([])
+    const [getFilterCita, setGetFilterCita] = useState(false)
+    const [ dataFilter, setDataFilter] = useState([]);
+
 
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/cita')
             .then(res => setGetTomador(res.data))
+        // setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
+        // const filteredPrice = getTomador.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH)
+        // setGetFilterFechaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        // setGetFilterCitaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
+        // setGetFilterCitaSnPlan(getTomador.filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
+        // setGetFilterC(getTomador.filter(e => e.fecha))
 
-        setGetFilterT(getTomador.filter(e => e.tipo === getFilterTipo))
-        setGetFilterP(getTomador.filter(e => e.plan === getFilterPlan))
-        setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
-        const filteredPrice = getTomador.filter(fecha => fecha.createdAt > getFilterFD && fecha.createdAt < getFilterFH)
-        setGetFilterFechaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt > getFilterFD && fecha.createdAt < getFilterFH))
+        // setGetFilterFecha(filteredPrice)
+      
+        // console.log(getFilterCitaALL)
 
-        setGetFilterFecha(filteredPrice)
-        console.log(getFilterFecha)
 
+    // setGetFilterP(
+
+        if(getTomador !== ""){
+            setDataFilter(getTomador)
+        }
+        // if (getFilterTipo !== "") {
+        //     setDataFilter(dataFilter.filter(e => e.tipo === getFilterTipo))
+        // }
+        
+        // if (getFilterPlan !== ""){
+        //     setDataFilter(dataFilter.filter(e => e.plan === getFilterPlan))
+        // }
+        
+        // if (getFilterFH !== ""){
+        //     setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        // }
+
+        // if (getFilterCita === true){
+        //     setDataFilter(dataFilter.filter((e => e.fecha)))
+        // }
+
+        // dataFilter === getTomador ? getTomador : setDataFilter(getFilterT)
+        
+        console.log(dataFilter)
     }, [test])
 
-    setInterval(() => {
+    useEffect(() => {
+        
+        if (getFilterTipo !== "") {
+            setDataFilter(dataFilter.filter(e => e.tipo === getFilterTipo))
+        }
+
+    }, [test2, test3])
+
+    useEffect(() => {
+        
+        if (getFilterPlan !== ""){
+            setDataFilter(dataFilter.filter(e => e.plan === getFilterPlan))
+        }
+
+    }, [test3])
+
+    useEffect(() => {
+        
+        if (getFilterFH !== ""){
+            setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        }
+
+    }, [test4])
+
+    useEffect(() => {
+        
+        if (getFilterCita === true){
+            setDataFilter(dataFilter.filter((e => e.fecha)))
+        }
+
+    }, [test5])
+
+    setTimeout(() => {
         setTest(test != true ? true : false);
-    }, "2000")
+    }, "1500")
+
+    setTimeout(() => {
+        setTest2(test != true ? true : false);
+    }, "1500")
+
+    setTimeout(() => {
+        setTest3(test != true ? true : false);
+    }, "1500")
+
+    setTimeout(() => {
+        setTest4(test != true ? true : false);
+    }, "1500")
+
+    setTimeout(() => {
+        setTest5(test != true ? true : false);
+    }, "1500")
+
+    
 
 
 
@@ -92,6 +170,10 @@ const ReportCotiz = () => {
                             <input type="date" onChange={(e) => setGetFilterFH(e.target.value)} />
                         </div>
                     </div>
+                    <div className='container-report-table-filter'>
+                            <label htmlFor="filter">Cita:</label>
+                            <input type="checkbox" onChange={(e) => setGetFilterCita(e.target.checked)} />
+                    </div>
                 </div>
                 <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
@@ -101,11 +183,17 @@ const ReportCotiz = () => {
                     <HotTable
                         ref={hotTableComponent}
                         data={
-                            getFilterTipo !== "" && getFilterPlan !== "" && getFilterFD !== "" && getFilterFH !== "" ? getFilterFechaALL :
-                                getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
-                                    getFilterFD !== "" && getFilterFH !== "" ? getFilterFecha :
-                                        getFilterTipo !== "" ? getFilterT :
-                                            getFilterPlan !== "" ? getFilterP : getTomador
+                            // getFilterTipo !== "" && getFilterPlan !== "" && getFilterFD !== "" && getFilterFH !== "" && getFilterCita === true ? getFilterCitaALL :
+                            // getFilterTipo !== "" && getFilterFD !== "" && getFilterFH !== "" && getFilterCita === true ? getFilterCitaSnPlan :
+                            // getFilterTipo !== "" && getFilterPlan !== "" && getFilterFD !== "" && getFilterFH !== "" ? getFilterFechaALL :
+                            //     getFilterTipo !== "" && getFilterPlan !== "" ? getFilterPlan2 :
+                            //         getFilterFD !== "" && getFilterFH !== "" ? getFilterFecha :
+                            //             getFilterTipo !== "" ? getFilterT :
+                            //             getFilterCita === true ? getFilterC :
+                            //             getFilterPlan !== "" ? getFilterP : getTomador
+                            // getTomador !== "" ? getTomador : 
+                            dataFilter === getTomador ? getTomador : dataFilter
+                            
                         }
                         language={esMX.languageCode}
                         licenseKey="non-commercial-and-evaluation"

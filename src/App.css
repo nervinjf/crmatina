@@ -691,6 +691,7 @@ td button i {
 
 .container-report-table-button-filter{
   display: flex;
+  align-items: center;
   gap: 1rem;
   padding-bottom: 1rem;
 }
@@ -698,6 +699,10 @@ td button i {
 .container-report-table-button-filter select{
   width: 10rem;
   height: 1.5rem;
+}
+
+.container-report-table-button-filter input{
+  width: 1rem;
 }
 
 .container-report-table-filter{
@@ -715,4 +720,12 @@ td button i {
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
+}
+
+.gapp input{
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  width: 10rem;
+  height: 1.5rem;
 }
