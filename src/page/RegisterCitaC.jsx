@@ -208,7 +208,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, testtt }) => {
                                                 <label htmlFor="check">Envio de Cotización: </label>
                                                 <input type="checkbox" {...register("enviaCotiza")} />
                                             </div>
-                                            <input type="text" placeholder='Prima anual' {...register("poliza")} />
+                                            <input type="text" placeholder='Prima anual' {...register("primaAnual")} />
 
                                         </div>
                                     </div>
