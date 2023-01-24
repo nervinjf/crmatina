@@ -142,6 +142,12 @@ const RegisterContact = ({id, setRegisterContact}) => {
             {isCheckNull && <CheckNull />}
             <div className='conatiner-check2'>
                 <div className='check2'>
+                <div className='cancel-check2'>
+                        <div>
+                            <button onClick={() => setRegisterContact(false)}><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+
+                    </div>
                 <form onSubmit={handleSubmit(registrarContacto)}>
                     <div className='container-form-input'>
                         <div>

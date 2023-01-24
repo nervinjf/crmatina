@@ -412,6 +412,26 @@ form button:hover .btn-i-hidden {
   gap: 1rem;
 }
 
+.cita-separate {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.cita-separates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cita-separates select{
+  width: 17.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+
 .form-cita-register-cotizacion {
   display: flex;
   flex-direction: column;
@@ -436,6 +456,8 @@ form button:hover .btn-i-hidden {
   padding-left: 0.5rem;
   color: black;
 }
+
+.form-cita-register form-cita-regis^
 
 .form--regis {
   margin-left: 1.5rem;
@@ -520,13 +542,29 @@ td button i {
 
 .check2 {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 1rem;
   border-radius: 0.5rem;
   background: white;
-  
+}
+
+.cancel-check2{
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+.cancel-check2 button {
+ border: none;
+ background: none;
+}
+
+.cancel-check2 button i{
+  margin: 0;
+  font-size: 1.3rem;
 }
 
 .contain-tomador-info{

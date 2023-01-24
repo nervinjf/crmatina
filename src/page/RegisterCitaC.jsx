@@ -135,6 +135,12 @@ const RegisterCitaC = ({ id, setRegisterCitaC, testtt }) => {
             {isCheckNull && <CheckNull />}
             <div className='conatiner-check2'>
                 <div className='check2'>
+                    <div className='cancel-check2'>
+                        <div>
+                            <button onClick={() => setRegisterCitaC(false)}><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+
+                    </div>
                     <div className='contain-Form-cita'>
                         <div className='form-cita'>
                             <form onSubmit={handleSubmit(registrarDatosCitas)}>
@@ -198,42 +204,48 @@ const RegisterCitaC = ({ id, setRegisterCitaC, testtt }) => {
                                                 </select>
                                             </div>
                                             <input type="text" placeholder='Monto Poliza' {...register("poliza")} />
+                                            <div className='form-cita-register-cotizacion-check'>
+                                                <label htmlFor="check">Envio de Cotización: </label>
+                                                <input type="checkbox" {...register("enviaCotiza")} />
+                                            </div>
+                                            <input type="text" placeholder='Prima anual' {...register("poliza")} />
+
                                         </div>
                                     </div>
                                     <div className='form-cot-cita-plani-regis'>
                                         <h3>Cita</h3>
-                                        <div className='form-cita-register form-cita-regis'>
-                                            <div className='form-cita-register-cotizacion'>
-                                                <label htmlFor="fechatime">Fecha Cita</label>
-                                                <input type="datetime-local" placeholder='Fecha' {...register("fecha")} />
+                                        <div className='cita-separate'>
+                                            <div className='cita-separates'>
+                                                <div className='form-cita-register-cotizacion'>
+                                                    <label htmlFor="fechatime">Fecha Cita</label>
+                                                    <input type="datetime-local" placeholder='Fecha' {...register("fecha")} />
+                                                </div>
+                                                <div className='form-cita-register-cotizacion'>
+                                                    {/* <label htmlFor="">Tiempo</label> */}
+                                                    <select name="" id="" {...register("statusSuscripcion")}>
+                                                        {/* <option value="">-- Seleccione el modo de la cita --</option> */}
+                                                        <option value="Proceso">Proceso</option>
+                                                        <option value="Concluido">Concluido</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div className='form-cita-register-cotizacion'>
-                                                {/* <label htmlFor="">Tiempo</label> */}
-                                                <select name="" id="" {...register("statusSuscripcion")}>
-                                                    {/* <option value="">-- Seleccione el modo de la cita --</option> */}
-                                                    <option value="Proceso">Proceso</option>
-                                                    <option value="Concluido">Concluido</option>
-                                                </select>
-                                            </div>
-                                            <div className='form-cita-register-cotizacion'>
-                                                {/* <label htmlFor="">Tiempo</label> */}
-                                                <select name="" id="" {...register("modoCita")}>
-                                                    <option value="">-- Seleccione el modo de la cita --</option>
-                                                    <option value="Virtual">Virtual</option>
-                                                    <option value="Presencial">Presencial</option>
-                                                </select>
-                                            </div>
-                                            <div className='form-cita-register-cotizacion'>
-                                                {/* <label htmlFor="">Tiempo</label> */}
-                                                <select name="" id="" {...register("citaAcomp")}>
-                                                    <option value="">-- Seleccione el modo de la cita --</option>
-                                                    <option value="Solo">Solo</option>
-                                                    <option value="Acompañado">Acompañado</option>
-                                                </select>
-                                            </div>
-                                            <div className='form-cita-register-cotizacion-check'>
-                                                <label htmlFor="check">Envio de Cotización: </label>
-                                                <input type="checkbox" {...register("enviaCotiza")}/>
+                                            <div className='cita-separates'>
+                                                <div className='form-cita-register-cotizacion'>
+                                                    {/* <label htmlFor="">Tiempo</label> */}
+                                                    <select name="" id="" {...register("modoCita")}>
+                                                        <option value="">-- Seleccione el modo de la cita --</option>
+                                                        <option value="Virtual">Virtual</option>
+                                                        <option value="Presencial">Presencial</option>
+                                                    </select>
+                                                </div>
+                                                <div className='form-cita-register-cotizacion'>
+                                                    {/* <label htmlFor="">Tiempo</label> */}
+                                                    <select name="" id="" {...register("citaAcomp")}>
+                                                        <option value="">-- Seleccione el modo de la cita --</option>
+                                                        <option value="Solo">Solo</option>
+                                                        <option value="Acompañado">Acompañado</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
 
