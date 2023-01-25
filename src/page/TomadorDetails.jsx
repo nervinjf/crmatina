@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import RegisterContact from './RegisterContact';
 import RegisterCitaC from './RegisterCitaC';
 import Loading from './Loading';
+import UpdateTomador from './UpdateTomador';
 
 const TomadorDetails = () => {
 
@@ -12,7 +13,9 @@ const TomadorDetails = () => {
     const [tomadorDetails, setToamdorDetails] = useState({});
     const [registerContact, setRegisterContact ] = useState(false)
     const [registerCitaC, setRegisterCitaC ] = useState(false)
+    const [updateTomador, setUpdateTomador ] = useState(false)
     const [test, setTest] = useState("")
+    const [tomador, setTomador] = useState("")
     const [ loading, setLoading ] = useState(false)
 
     useEffect(() => {
@@ -20,14 +23,30 @@ const TomadorDetails = () => {
         axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${id}`)
             .then(res => setToamdorDetails(res.data))
             .finally(() => setLoading(false))
-    }, [registerContact || registerCitaC])
+    }, [registerContact || registerCitaC || updateTomador ])
 
     console.log(tomadorDetails)
 
-    const testingg = (data) => {
+    const updateCita = (data) => {
         setRegisterCitaC(true)
         setTest(data)
     }
+
+    const updateToma = (data) => {
+        setUpdateTomador(true)
+        setTomador(data)
+    }
+
+        let hoy = new Date()
+        let fechaNacimiento = new Date(tomadorDetails?.fNacimiento)
+        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
+        let diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth()
+        if (
+          diferenciaMeses < 0 ||
+          (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento.getDate())
+        ) {
+          edad--
+        }
 
     return (
         <div className='contain-tomador-info'>
@@ -50,6 +69,11 @@ const TomadorDetails = () => {
                     <input type="text" value={tomadorDetails?.patologia} disabled />
                     <label htmlFor="Nombre">Medicamentos:</label>
                     <input type="text" value={tomadorDetails?.medicamentos} disabled />
+                    <label htmlFor="Nombre">Edad:</label>
+                    <input type="text" value={edad} disabled />
+                </div>
+                <div className='info-tomador-update'>
+                    <button onClick={() => updateToma(tomadorDetails)}><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
             </div>
             <div className='info-tomador'>
@@ -90,7 +114,7 @@ const TomadorDetails = () => {
                                             <td>{user?.poliza}</td>
                                             <td>{new Date(user?.fecha).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
                                             <td>{user?.statusSuscripcion}</td>
-                                            <td><button onClick={() => testingg(user)}><i class="fa-solid fa-pen-to-square"></i></button></td>
+                                            <td><button onClick={() => updateCita(user)}><i class="fa-solid fa-pen-to-square"></i></button></td>
                                         </tr>
                                     ))
                                 }
@@ -145,7 +169,8 @@ const TomadorDetails = () => {
                 </div>
             </div>
             {registerContact && <RegisterContact id={id} setRegisterContact={setRegisterContact}/>}
-            {registerCitaC && <RegisterCitaC id={id} setRegisterCitaC={setRegisterCitaC} testtt={test}/>}
+            {registerCitaC && <RegisterCitaC id={id} setRegisterCitaC={setRegisterCitaC} updateCita={test}/>}
+            { updateTomador && <UpdateTomador id={id} setUpdateTomador={setUpdateTomador} updateToma={tomador}/>}
         </div>
     );
 };

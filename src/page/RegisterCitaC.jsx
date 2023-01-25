@@ -6,7 +6,7 @@ import CheckNull from './CheckNull';
 import AsyncSelect from 'react-select';
 
 
-const RegisterCitaC = ({ id, setRegisterCitaC, testtt }) => {
+const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
     const [getUsuario, setGetUsuario] = useState([]);
     const { register, handleSubmit, reset } = useForm();
     const [isCheck, setIsCheck] = useState(false);
@@ -35,20 +35,20 @@ const RegisterCitaC = ({ id, setRegisterCitaC, testtt }) => {
     }
 
     // -------------------------------------------------------
-    const selectRegister = (testtt) => {
-        setUserSelected(testtt)
+    const selectRegister = (updateCita) => {
+        setUserSelected(updateCita)
     }
 
     useEffect(() => {
-        if (testtt) {
-            reset(testtt)
+        if (updateCita) {
+            reset(updateCita)
         }
-    }, [testtt]);
+    }, [updateCita]);
 
     // -----------------------------------------------------------------------------------------------
 
     const registrarDatosCitas = (data) => {
-        if (testtt) {
+        if (updateCita) {
             const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             console.log(data.id)
             axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut)

@@ -141,7 +141,7 @@ const RegisterContact = ({id, setRegisterContact}) => {
             {isCheck && <Check />}
             {isCheckNull && <CheckNull />}
             <div className='conatiner-check2'>
-                <div className='check2'>
+                <div className='check'>
                 <div className='cancel-check2'>
                         <div>
                             <button onClick={() => setRegisterContact(false)}><i class="fa-solid fa-xmark"></i></button>
