@@ -174,16 +174,16 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                 </select>
                                             </div>
                                             <input type="number" placeholder='Asegurados' {...register("asegurados")} />
-                                            <div className='form-cita-register-cotizacion'>
-                                                {/* <label htmlFor="Mpago" placeholder='metodo de Pago'>Moneda</label> */}
+                                            {/* <div className='form-cita-register-cotizacion'>
+                                                <label htmlFor="Mpago" placeholder='metodo de Pago'>Moneda</label>
                                                 <select name="Mpago" id="" {...register("efectivo")}>
                                                     <option value="">-- Seleccione el Tipo de Modeda --</option>
                                                     <option value="Dolares">Dolares</option>
                                                     <option value="Bolivares">Bolivares</option>
                                                 </select>
-                                            </div>
-                                            <div className='form-cita-register-cotizacion'>
-                                                {/* <label htmlFor="Mpago" placeholder='metodo de Pago'>Metodo de Pago</label> */}
+                                            </div> 
+                                             <div className='form-cita-register-cotizacion'>
+                                                <label htmlFor="Mpago" placeholder='metodo de Pago'>Metodo de Pago</label>
                                                 <select name="Mpago" id="" {...register("fPago")}>
                                                     <option value="">-- Seleccione el Metodo de Pago --</option>
                                                     <option value="Efectivo">Efectivo</option>
@@ -192,7 +192,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                     <option value="Debito">Debito</option>
                                                     <option value="Credito">Credito</option>
                                                 </select>
-                                            </div>
+                                            </div> */}
                                             <div className='form-cita-register-cotizacion'>
                                                 {/* <label htmlFor="">Tiempo</label> */}
                                                 <select name="" id="" {...register("tiempo")}>
@@ -226,6 +226,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                         {/* <option value="">-- Seleccione el modo de la cita --</option> */}
                                                         <option value="Proceso">Proceso</option>
                                                         <option value="Concluido">Concluido</option>
+                                                        <option value="Concluido"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -238,14 +239,14 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                         <option value="Presencial">Presencial</option>
                                                     </select>
                                                 </div>
-                                                <div className='form-cita-register-cotizacion'>
-                                                    {/* <label htmlFor="">Tiempo</label> */}
+                                                {/* <div className='form-cita-register-cotizacion'>
+                                                    <label htmlFor="">Tiempo</label>
                                                     <select name="" id="" {...register("citaAcomp")}>
                                                         <option value="">-- Seleccione el modo de la cita --</option>
                                                         <option value="Solo">Solo</option>
                                                         <option value="Acompañado">Acompañado</option>
                                                     </select>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
 

@@ -1,3 +1,5 @@
+@import url('https://cdn.syncfusion.com/ej2/bootstrap5.css');
+
 .table-register {
   margin: 25px 45px;
   width: auto;
@@ -805,3 +807,4 @@ td button i {
   text-align: end;
   padding: 0rem 0.3rem;
 }
+

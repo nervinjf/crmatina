@@ -11,6 +11,7 @@ import Home from './page/Home';
 import Calendar from './page/Calendar'
 import TomadorDetails from './page/TomadorDetails';
 import RegisterUser from './page/RegisterUser';
+import Pivote from './page/Pivote';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Route path='/calendar' element={<Calendar />}/>
       <Route path="/tomadordetails/:id" element={<TomadorDetails />}/>
       <Route path="/registeruser" element={<RegisterUser />}/>
+      <Route path="/pivote" element={<Pivote />}/>
     </Routes>
    </HashRouter>
    </div>
