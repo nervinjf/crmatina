@@ -41,7 +41,6 @@ const RegisterUser = () => {
     return (
         <div>
         <div>
-            <h1>Tomador</h1>
             {isCheck && <Check />}
             {isCheckNull && <CheckNull />}
         </div>
