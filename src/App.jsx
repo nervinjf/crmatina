@@ -10,6 +10,7 @@ import Registrar from './page/Registrar';
 import Home from './page/Home';
 import Calendar from './page/Calendar'
 import TomadorDetails from './page/TomadorDetails';
+import RegisterUser from './page/RegisterUser';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='/registros' element={<Registros />}/>
       <Route path='/calendar' element={<Calendar />}/>
       <Route path="/tomadordetails/:id" element={<TomadorDetails />}/>
+      <Route path="/registeruser" element={<RegisterUser />}/>
     </Routes>
    </HashRouter>
    </div>
