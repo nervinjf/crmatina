@@ -120,7 +120,8 @@ const RegisterContact = ({id, setRegisterContact}) => {
     }, [dataMotivo1])
 
     useEffect(() => {
-        const optionsMotivo2 = dataMotivo2 === "Contactado" ? setInfoMotivo3(["Cita Efectiva", "Cotización Enviada", "Solicitud Envío de Información", "Confirmación de Suscripción"]) :
+        const optionsMotivo2 = dataMotivo2 === "Contactado" ? setInfoMotivo3(["Cita Efectiva", "Cotización Enviada", "Solicitud Envío de Información", "Confirmación de Suscripción", "Cotización Anulada",
+                                                                              "Reprogramación de Cita", "Flayer Informativo", "Solicitud nueva información"]) :
                             dataMotivo2 === "No Interesado" ? setInfoMotivo3(["Ya se encuentra asegurado", "No desea poliza", "Precios elevados", "No está de acuerdo con la cobertura"]) :
                             dataMotivo2 === "Volver a Llamar" ? setInfoMotivo3(["Volver a Llamar", "Confirma recepción de cotización", "En espera de aprobación", "Inconveniente de comunicación"]) :
                             dataMotivo2 === "No contesta" ? setInfoMotivo3(["No contesta"]) : 
