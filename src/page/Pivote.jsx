@@ -28,6 +28,7 @@ const Pivote = () => {
     return (
         <div className='container-report-table'>
             <h3>test</h3>
+            
             <PivotTableUI
                 data={tomador}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}

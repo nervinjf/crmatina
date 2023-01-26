@@ -1,14 +1,26 @@
+// import axios from 'axios';
+// import React, { useEffect, useState } from 'react';
+// import { HotColumn, HotTable } from '@handsontable/react';
+// import "handsontable/dist/handsontable.full.css";
+// import { registerAllModules } from 'handsontable/registry';
+// import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import React from 'react';
+import PivotTableUI from "react-pivottable/PivotTableUI";
+import "react-pivottable/pivottable.css";
+import TableRenderers from "react-pivottable/TableRenderers";
+import Plot from "react-plotly.js";
+import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
+import { useState } from 'react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { HotColumn, HotTable } from '@handsontable/react';
-import "handsontable/dist/handsontable.full.css";
-import { registerAllModules } from 'handsontable/registry';
-import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import { useEffect } from 'react';
 
 
 const ReportTomador = () => {
 
     const [getTomador, setGetTomador] = useState([]);
+
+    const PlotlyRenderers = createPlotlyRenderers(Plot);
+    const [state, setState] = useState([]);
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
@@ -17,8 +29,8 @@ const ReportTomador = () => {
 
 
 
-    registerAllModules();
-    registerLanguageDictionary(esMX)
+    // registerAllModules();
+    // registerLanguageDictionary(esMX)
 
     const hotTableComponent = React.useRef(null);
 
@@ -40,7 +52,16 @@ const ReportTomador = () => {
             <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i> 
             </div>
             <div className='container-report-table-t'>
-            {
+            
+            <PivotTableUI
+                data={getTomador}
+                renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
+                onChange={(s) => {
+                    setState(s);
+                }}
+                {...state}
+            />
+            {/* {
                 getTomador &&
                 <HotTable
                     ref={hotTableComponent}
@@ -76,7 +97,7 @@ const ReportTomador = () => {
 
 
                 </HotTable>
-            }
+            } */}
             </div>
         </div>
     );

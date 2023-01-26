@@ -1,9 +1,18 @@
+// import axios from 'axios';
+// import React, { useEffect, useState } from 'react';
+// import { HotColumn, HotTable } from '@handsontable/react';
+// import "handsontable/dist/handsontable.full.css";
+// import { registerAllModules } from 'handsontable/registry';
+// import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import React from 'react';
+import PivotTableUI from "react-pivottable/PivotTableUI";
+import "react-pivottable/pivottable.css";
+import TableRenderers from "react-pivottable/TableRenderers";
+import Plot from "react-plotly.js";
+import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
+import { useState } from 'react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { HotColumn, HotTable } from '@handsontable/react';
-import "handsontable/dist/handsontable.full.css";
-import { registerAllModules } from 'handsontable/registry';
-import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import { useEffect } from 'react';
 
 const ReportCita = () => {
 
@@ -17,6 +26,9 @@ const ReportCita = () => {
     const [getFilterCita, setGetFilterCita] = useState(false)
     const [getFilterCotizacion, setGetFilterCotizacion] = useState(false)
     const [ dataFilter, setDataFilter] = useState([]);
+
+    const PlotlyRenderers = createPlotlyRenderers(Plot);
+    const [state, setState] = useState([]);
 
 
     useEffect(() => {
@@ -85,10 +97,10 @@ const ReportCita = () => {
 
 
 
-    registerAllModules();
-    registerLanguageDictionary(esMX)
+    // registerAllModules();
+    // registerLanguageDictionary(esMX)
 
-    const hotTableComponent = React.useRef(null);
+    // const hotTableComponent = React.useRef(null);
 
     const descargarArchivo = () => {
         const pluginDescarga = hotTableComponent.current.hotInstance.getPlugin("exportFile");
@@ -164,7 +176,15 @@ const ReportCita = () => {
                 <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
             <div className='container-report-table-t'>
-            {
+            <PivotTableUI
+                data={dataFilter === getTomador ? getTomador : dataFilter}
+                renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
+                onChange={(s) => {
+                    setState(s);
+                }}
+                {...state}
+            />
+            {/* {
                 getTomador &&
                 <HotTable
                     ref={hotTableComponent}
@@ -199,7 +219,7 @@ const ReportCita = () => {
 
 
                 </HotTable>
-            }
+            } */}
             </div>
             <div className='count-length-datos'>
                 <h5>Count:</h5>
