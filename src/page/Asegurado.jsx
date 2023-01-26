@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import getConfig from '../utils/getConfig';
 
 const Asegurado = () => {
 
@@ -10,17 +11,17 @@ const Asegurado = () => {
     const { register, handleSubmit, reset } = useForm();
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador',  getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/users',  getConfig())
             .then(res => setGetUsuario(res.data))
     }, [])
 
     const registrarDatosAsegurados = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/asegurado`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/asegurado`, data, getConfig())
             .catch(error => console.log(error.response))
             .then(() => getUsers())
         reset({

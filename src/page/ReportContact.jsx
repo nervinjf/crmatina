@@ -4,13 +4,15 @@ import { HotColumn, HotTable } from '@handsontable/react';
 import "handsontable/dist/handsontable.full.css";
 import { registerAllModules } from 'handsontable/registry';
 import { registerLanguageDictionary, esMX } from 'handsontable/i18n';
+import getConfig from '../utils/getConfig';
+
 
 const ReportContact = () => {
 
     const [getTomador, setGetTomador] = useState([]);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto', getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 

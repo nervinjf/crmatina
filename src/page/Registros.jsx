@@ -10,6 +10,8 @@ import "handsontable/dist/handsontable.full.css";
 import { registerAllModules } from 'handsontable/registry';
 import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
 // import { getDefaultMiddleware } from 'react-redux/toolkit';
+import getConfig from '../utils/getConfig';
+
 
 const Registros = () => {
 
@@ -52,7 +54,7 @@ const Registros = () => {
     const hotTableComponent = React.useRef(null);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
 
         console.log(nombreFilter)

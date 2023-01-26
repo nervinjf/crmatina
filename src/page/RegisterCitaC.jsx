@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import Check from './Check';
 import CheckNull from './CheckNull';
 import AsyncSelect from 'react-select';
+import getConfig from '../utils/getConfig';
+
 
 
 const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
@@ -51,7 +53,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
         if (updateCita) {
             const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             console.log(data.id)
-            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut)
+            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -78,7 +80,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
         } else {
 
             const data2 = ({ ...data, "tomadorId": id });
-            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
+            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {

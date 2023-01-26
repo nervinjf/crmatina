@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import getConfig from '../utils/getConfig';
+
 
 
 const RegistroContacto = () => {
@@ -16,7 +18,7 @@ const RegistroContacto = () => {
 
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 
@@ -27,7 +29,7 @@ const RegistroContacto = () => {
 
 
     const registrarContacto = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data, getConfig())
             .catch(error => console.log(error.response))
             .then(() => getUsers())
         reset({

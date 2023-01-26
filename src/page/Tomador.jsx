@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Check from './Check';
 import CheckNull from './CheckNull';
+import getConfig from '../utils/getConfig';
+
 
 const Tomador = () => {
 
@@ -18,7 +20,7 @@ const Tomador = () => {
     }, [])
 
     const registrarDatosTomador = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {

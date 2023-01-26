@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import Check from './Check';
 import CheckNull from './CheckNull';
+import getConfig from '../utils/getConfig';
+
 
 const RegisterUser = () => {
 
@@ -12,7 +14,7 @@ const RegisterUser = () => {
     const [isCheckNull, setIsCheckNull] = useState(false);
 
     const registrarDatosTomador = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/users`, data)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/users`, data, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {

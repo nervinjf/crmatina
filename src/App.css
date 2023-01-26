@@ -815,3 +815,29 @@ td button i {
   z-index: 1;
   color: #fff;
 }
+
+.container-login{
+  background: #fff;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 45rem;
+} 
+
+.form-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.form-img img{
+  border-right: 0.1rem solid black;
+  padding-right: 1rem;
+}

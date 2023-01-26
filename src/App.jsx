@@ -12,32 +12,37 @@ import Calendar from './page/Calendar'
 import TomadorDetails from './page/TomadorDetails';
 import RegisterUser from './page/RegisterUser';
 import Pivote from './page/Pivote';
+import LogIn from './Component/LogIn';
+import ProtectedRoutes from './Component/ProtectedRoutes';
 
 
 function App() {
 
-  const [ userSelected, setUserSelected ] = useState(null);
+  const [userSelected, setUserSelected] = useState(null);
 
   const selectRegister = (data) => {
     setUserSelected(data)
   }
- 
+
 
   return (
     <div className='body'>
-   <HashRouter>
-    <Navbarn/>
-    <Routes>
-      <Route path='/' element={<Home />}/>
-      <Route path='/registrar' element={<Registrar />}/>
-      <Route path='/registros' element={<Registros />}/>
-      <Route path='/calendar' element={<Calendar />}/>
-      <Route path="/tomadordetails/:id" element={<TomadorDetails />}/>
-      <Route path="/registeruser" element={<RegisterUser />}/>
-      <Route path="/pivote" element={<Pivote />}/>
-    </Routes>
-   </HashRouter>
-   </div>
+      <HashRouter>
+        <Navbarn />
+        <Routes>
+          <Route path='/login' element={<LogIn />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/registrar' element={<Registrar />} />
+            <Route path='/registros' element={<Registros />} />
+            <Route path='/calendar' element={<Calendar />} />
+            <Route path="/tomadordetails/:id" element={<TomadorDetails />} />
+            <Route path="/registeruser" element={<RegisterUser />} />
+            <Route path="/pivote" element={<Pivote />} />
+          </Route>
+        </Routes>
+      </HashRouter>
+    </div>
   )
 }
 

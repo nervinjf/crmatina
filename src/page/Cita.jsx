@@ -6,6 +6,7 @@ import AsyncSelect from 'react-select';
 import Table from 'react-bootstrap/Table';
 import Check from './Check';
 import CheckNull from './CheckNull';
+import getConfig from '../utils/getConfig';
 
 const Cita = () => {
 
@@ -33,7 +34,7 @@ const Cita = () => {
     }, [userSelected]);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 
@@ -46,13 +47,13 @@ const Cita = () => {
         if (userSelected) {
             const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             console.log(data.id)
-            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut)
+            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut, getConfig())
                 .then(() => getUsers())
 
         } else {
 
             const data2 = ({ ...data, "tomadorId": getTomadorId });
-            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
+            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -112,7 +113,7 @@ const Cita = () => {
     }
 
     useEffect(() => {
-        axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${getTomadorId}`)
+        axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${getTomadorId}`, getConfig())
             .then(res => setGetTomadorIdO(res.data))
             .then(res => console.log(res?.error))
     }, [getTomadorId])

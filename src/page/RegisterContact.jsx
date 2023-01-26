@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Check from './Check';
 import CheckNull from './CheckNull';
+import getConfig from '../utils/getConfig';
+
 
 const RegisterContact = ({id, setRegisterContact}) => {
 
@@ -74,7 +76,7 @@ const RegisterContact = ({id, setRegisterContact}) => {
 
     const registrarContacto = (data) => {
         const data2 = ({ ...data, "tomadorId": id });
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data2)
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data2, getConfig())
         .catch(error => {
                             console.log(error.response)
                             if (error.response.status === 400) {

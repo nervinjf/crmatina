@@ -7,6 +7,7 @@ import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import getConfig from '../utils/getConfig';
 
 const Pivote = () => {
 
@@ -15,7 +16,7 @@ const Pivote = () => {
     const [ tomador, setTomador ] = useState([])
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
             .then(res => setTomador(res.data))
 
             

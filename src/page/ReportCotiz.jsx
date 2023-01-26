@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { HotColumn, HotTable } from '@handsontable/react';
 import "handsontable/dist/handsontable.full.css";
 import { registerAllModules } from 'handsontable/registry';
-import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import { registerLanguageDictionary, esMX } from 'handsontable/i18n';
+import getConfig from '../utils/getConfig';
+
 
 const ReportCotiz = () => {
 
@@ -23,7 +25,7 @@ const ReportCotiz = () => {
 
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/cita')
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/cita', getConfig())
             .then(res => setGetTomador(res.data))
         // setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
         // const filteredPrice = getTomador.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH)
