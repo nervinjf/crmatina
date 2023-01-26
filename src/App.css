@@ -808,3 +808,10 @@ td button i {
   padding: 0rem 0.3rem;
 }
 
+.color-table{
+  background: #363a8b;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #fff;
+}

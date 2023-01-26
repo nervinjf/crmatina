@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { getRegistros, getRegistrosThunk } from '../store/slice/getForm.slice';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { HotColumn, HotTable } from '@handsontable/react';
+import "handsontable/dist/handsontable.full.css";
+import { registerAllModules } from 'handsontable/registry';
+import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
 // import { getDefaultMiddleware } from 'react-redux/toolkit';
 
 const Registros = () => {
@@ -13,22 +17,46 @@ const Registros = () => {
 
     const [getTomador, setGetTomador] = useState([]);
     const [ numberFilter, setNumberFilter ] = useState(0);
+    const [ nombreFilter, setNombreFilter ] = useState("");
     const [ getTomadorFilter, setGetTomadorFilter ] = useState([])
     const [ getIdTomador, setGetIdToamdor ] = useState(null);
 
     let tomadorFilter; 
 
+    const FilterContac = (e) => {
+        setNumberFilter(e.target.value)
+    //    setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numero)));
+    }
+    const NombreFilter = (e) => {
+        setNombreFilter(e.target.value)
+    //    setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numero)));
+    }
+
+    let result = []
+    if(!numberFilter){
+        result = getTomador
+    } else {
+        result = getTomador.filter(e => e.contacto.length === Number(numberFilter));
+    }
+
+    if(!nombreFilter){
+        result = getTomador
+    } else {
+        result = getTomador.filter(e => e.firstname.toLowerCase().includes(nombreFilter.toLocaleLowerCase()));
+    }
+
+
+     registerAllModules();
+    registerLanguageDictionary(esMX)
+
+    const hotTableComponent = React.useRef(null);
+
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador')
             .then(res => setGetTomador(res.data))
 
-        tomadorFilter = setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numberFilter)));
-        console.log(getTomadorFilter)
-    }, [numberFilter || getTomador ])
-
-    // console.log(get)
-
-    // console.log(new Date(get.data?.fechatime).toString())
+        console.log(nombreFilter)
+    }, [ ])
 
 
     return (
@@ -37,7 +65,7 @@ const Registros = () => {
             <h3>Filtros</h3>
             <div className='table-register-filter-items'>
                 <p>Contactos: </p>
-                <select name="" id="" onChange={e => setNumberFilter(e.target.value)}>
+                <select value={numberFilter} name="" id="" onChange={FilterContac}>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -46,10 +74,49 @@ const Registros = () => {
                     <option value="5">5</option>
                 </select>
             </div>
+            <div className='table-register-filter-items'>
+            <input type="text" placeholder='Nombre' value={nombreFilter}  onChange={NombreFilter} />
+            </div>
         </div>
         <div className='table-register'>
+            {/* {
+                getTomador &&
+                <HotTable
+                    ref={hotTableComponent}
+                    data={result}
+                    language={esMX.languageCode}
+                    licenseKey="non-commercial-and-evaluation"
+                    colHeaders={true}
+                    rowHeaders={true}
+                    columnSorting={true}
+                    mergeCells={true}
+                    contextMenu={true}
+                    // filters={true}
+                    filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
+                        "not_between", "not_contains", "not_empty", "neq"]}
+                    dropdownMenu={true}
+
+                >
+                    <HotColumn data="firstname" title='Nombre' onClick={() => navigate(`/tomadordetails/${gett.id}`)} readOnly={true}/>
+                    <HotColumn data="lastname" title='Apellido' readOnly={true}/>
+                    <HotColumn data="ci" title='CI' readOnly={true}/>
+                    <HotColumn data="email" title='Correo' readOnly={true}/>
+                    <HotColumn data="phone1" title='Telefono 1' readOnly={true}/>
+                    <HotColumn data="phone2" title='Telefono 2' readOnly={true}/>
+                    <HotColumn data="phone3" title='Telefono 3' readOnly={true}/>
+                    <HotColumn data="address1" title='Direccion 1' readOnly={true}/>
+                    <HotColumn data="address2" title='Direccion 2' readOnly={true}/>
+                    <HotColumn data="fNacimiento" title='Fecha Nacimiento' readOnly={true}/>
+                    <HotColumn data="patologia" title='Patologia' readOnly={true}/>
+                    <HotColumn data="medicamentos" title='Medicamentos' readOnly={true}/>
+
+
+
+
+                </HotTable>
+            } */}
             <Table striped bordered hover>
-                <thead>
+                <thead className='color-table'>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -67,13 +134,13 @@ const Registros = () => {
                 </thead>
                 <tbody>
                     {
-                        getTomadorFilter?.map(gett => (
+                        result?.map(gett => (
                             <tr key={gett.id}>
                                 <th onClick={() => navigate(`/tomadordetails/${gett.id}`)}>{gett.firstname}</th>
                                 <th>{gett.lastname}</th>
                                 <th>{gett.ci}</th>
                                 <th>{gett.email}</th>
-                                {/* <th>{new Date(gett?.fechatime).toLocaleString('es-VE', { timeZone: 'UTC' })}</th> */}
+                                <th>{new Date(gett?.fechatime).toLocaleString('es-VE', { timeZone: 'UTC' })}</th>
                                 <th>{gett.phone1}</th>
                                 <th>{gett.phone2}</th>
                                 <th>{gett.phone3}</th>
