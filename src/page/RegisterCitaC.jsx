@@ -16,6 +16,8 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
     const [infoPlan, setInfoPlan] = useState([]);
     const [infoTipo, setInfoTipo] = useState("");
     const [userSelected, setUserSelected] = useState(null);
+    const [ idUser, setIdUser ] = useState("")
+
 
     const clear = () => {
         reset({
@@ -35,6 +37,10 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
             "userId": ""
         })
     }
+
+    useEffect(() => {
+        setIdUser(JSON.parse(localStorage.getItem("userData")));
+    }, [])
 
     // -------------------------------------------------------
     const selectRegister = (updateCita) => {
@@ -78,8 +84,8 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                 })
 
         } else {
-
-            const data2 = ({ ...data, "tomadorId": id });
+            
+            const data2 = ({ ...data, "tomadorId": id,  "userId": idUser.id});
             axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2, getConfig())
                 .catch(error => {
                     console.log(error.response)
@@ -267,7 +273,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='user-form'>
+                                {/* <div className='user-form'>
                                     <select name="usuario" placeholder='Usuaios' {...register("userId")}>
                                         {
                                             getUsuario.map(user => (
@@ -275,7 +281,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                             ))
                                         }
                                     </select>
-                                </div>
+                                </div> */}
                                 <button>
                                     <div className='btn-text-hidden'>
                                         Enviar

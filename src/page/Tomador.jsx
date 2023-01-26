@@ -13,14 +13,18 @@ const Tomador = () => {
     const { register, handleSubmit, reset } = useForm();
     const [isCheck, setIsCheck] = useState(false);
     const [isCheckNull, setIsCheckNull] = useState(false);
+    const [ idUser, setIdUser ] = useState("")
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
+
+            setIdUser(JSON.parse(localStorage.getItem("userData")));
     }, [])
 
     const registrarDatosTomador = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data, getConfig())
+        const data2 = {...data, "userId": idUser.id}
+        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data2, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {
@@ -124,16 +128,16 @@ const Tomador = () => {
                                             <label htmlFor="fechatime">Medicamentos</label>
                                             <input type="text" {...register("medicamentos")} />
                                         </div>
-                                        <div className='form-contac-detail'>
+                                        {/* <div className='form-contac-detail'>
                                             <label htmlFor="fechatime">Usuario</label>
                                             <select name="nombre" {...register("userId")}>
                                                 {
                                                     getUsuario.map(user => (
-                                                        <option value={Number(user.id)} key={user.id}>{user.firstname} {user.lastname}</option>
+                                                        <option value={idUser.id} key={user.id}>{user.firstname} {user.lastname}</option>
                                                     ))
                                                 }
                                             </select>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

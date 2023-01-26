@@ -6,6 +6,7 @@ import CheckNull from './CheckNull';
 import getConfig from '../utils/getConfig';
 
 
+
 const RegisterContact = ({id, setRegisterContact}) => {
 
     const [getTomador, setGetTomador] = useState([]);
@@ -17,6 +18,9 @@ const RegisterContact = ({id, setRegisterContact}) => {
     const { register, handleSubmit, reset } = useForm();
     const [isCheck, setIsCheck] = useState(false);
     const [isCheckNull, setIsCheckNull] = useState(false);
+    const [ idUser, setIdUser ] = useState("")
+
+
     
     // const clear = () => {
     //     reset({
@@ -72,10 +76,11 @@ const RegisterContact = ({id, setRegisterContact}) => {
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
+            setIdUser(JSON.parse(localStorage.getItem("userData")));
     }, [])
 
     const registrarContacto = (data) => {
-        const data2 = ({ ...data, "tomadorId": id });
+        const data2 = ({ ...data, "tomadorId": id, "userId": idUser.id});
         axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data2, getConfig())
         .catch(error => {
                             console.log(error.response)
@@ -223,7 +228,7 @@ const RegisterContact = ({id, setRegisterContact}) => {
                                         <label htmlFor="fechatime">observacion</label>
                                         <textarea {...register("observacion")}></textarea>
                                     </div>
-                                    <div className='form-contac-detail'>
+                                    {/* <div className='form-contac-detail'>
                                         <label htmlFor="fechatime">Usuario</label>
                                         <select name="nombre" {...register("userId")}>
                                             {
@@ -232,7 +237,7 @@ const RegisterContact = ({id, setRegisterContact}) => {
                                                 ))
                                             }
                                         </select>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className='contenedor3'>
 
