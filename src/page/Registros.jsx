@@ -18,7 +18,7 @@ const Registros = () => {
     const navigate = useNavigate();
 
     const [getTomador, setGetTomador] = useState([]);
-    const [ numberFilter, setNumberFilter ] = useState(0);
+    const [ numberFilter, setNumberFilter ] = useState("");
     const [ nombreFilter, setNombreFilter ] = useState("");
     const [ getTomadorFilter, setGetTomadorFilter ] = useState([])
     const [ getIdTomador, setGetIdToamdor ] = useState(null);
@@ -34,17 +34,18 @@ const Registros = () => {
     //    setGetTomadorFilter(getTomador.filter(e => e.contacto.length === Number(numero)));
     }
 
-    let result = []
+    let result = getTomador;
     if(!numberFilter){
-        result = getTomador
+        result 
     } else {
-        result = getTomador.filter(e => e.contacto.length === Number(numberFilter));
+        result = result.filter(e => e.contacto.length === Number(numberFilter));
+        // console.log(result.filter(e => e.contacto.length === Number(numberFilter)));
     }
 
     if(!nombreFilter){
-        result = getTomador
+        result
     } else {
-        result = getTomador.filter(e => e.firstname.toLowerCase().includes(nombreFilter.toLocaleLowerCase()));
+        result = result.filter(e => e.firstname.toLowerCase().includes(nombreFilter.toLocaleLowerCase()));
     }
 
 
