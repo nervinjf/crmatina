@@ -30,7 +30,8 @@ const LogIn = () => {
             .finally(reset({
                     "email": "",
                     "password": ""
-                }))        
+                }))     
+        .catch()   
     }
     return (
         <div className='container-login'>

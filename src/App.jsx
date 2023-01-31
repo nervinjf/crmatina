@@ -14,15 +14,31 @@ import RegisterUser from './page/RegisterUser';
 import Pivote from './page/Pivote';
 import LogIn from './Component/LogIn';
 import ProtectedRoutes from './Component/ProtectedRoutes';
+import getConfig from './utils/getConfig';
 
 
 function App() {
 
   const [userSelected, setUserSelected] = useState(null);
+  const [ act, setAct ] = useState(false)
 
   const selectRegister = (data) => {
     setUserSelected(data)
   }
+
+  useEffect(() => {
+    axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador`, getConfig())
+        .catch(error => {
+            console.log(error.response)
+            if (error.response.status === 400) {
+                    localStorage.removeItem("userData");
+            }
+        })
+  }, [act])
+
+  setTimeout(() => {
+    setAct(act != true ? true : false);
+}, "3600000")
 
 
   return (
