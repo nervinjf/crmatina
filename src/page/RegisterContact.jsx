@@ -185,6 +185,7 @@ const RegisterContact = ({id, setRegisterContact}) => {
                                             <option value="Cita">Cita</option>
                                             <option value="Seguimiento">Seguimiento</option>
                                             <option value="Cotización">Cotización</option>
+                                            <option value="Información">Información</option>
                                         </select>
                                     </div>
                                 </div>
