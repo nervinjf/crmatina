@@ -14,7 +14,7 @@ const Navbarn = () => {
   }
 
   return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" fixed="top" >
         <Container>
           {/* <Navbar.Brand to='/'><div className='logo'><img src={} alt="" width="100px"/></div></Navbar.Brand> */}
           <Nav className="me-auto">

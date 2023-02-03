@@ -855,9 +855,14 @@ td button i {
   color: #fff;
   align-items: center;
 }
+
 .nav-items-logoff button{
   background: none;
   color: #fff;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
+}
+
+.navbar{
+  
 }
