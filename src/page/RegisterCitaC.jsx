@@ -125,7 +125,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
     let value = 0;
 
     useEffect(() => {
-        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50.000$", "Premium - 100.000$", "Elite - 200.000$"]) :
+        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50.000$", "Premium - 100.000$", "Elite - 200.000$", "Póliza Integral - 1.000.000$"]) :
             infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1.000$", "Platinum - 2.000$"]) : "";
 
 
