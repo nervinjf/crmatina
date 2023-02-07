@@ -29,7 +29,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 1rem 0 0 50px;
+  padding: 5rem 0 0 50px;
 }
 
 form {
@@ -572,7 +572,7 @@ td button i {
 }
 
 .contain-tomador-info{
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -697,7 +697,7 @@ td button i {
 /* fin loading */
 
 .Container-report{
-  padding: 2rem;
+  padding: 5rem 2rem 2rem 2rem;
 }
 
 .Container-report-select{
@@ -743,7 +743,7 @@ td button i {
 }
 
 .register-tomador{
-  padding: 2rem;
+  padding: 3rem;
 }
 
 .container-report-table-button-filter{
