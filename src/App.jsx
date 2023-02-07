@@ -54,7 +54,7 @@ function App() {
             <Route path='/calendar' element={<Calendar />} />
             <Route path="/tomadordetails/:id" element={<TomadorDetails />} />
             <Route path="/registeruser" element={<RegisterUser />} />
-            <Route path="/pivote" element={<Pivote />} />
+            {/* <Route path="/pivote" element={<Pivote />} /> */}
           </Route>
         </Routes>
       </HashRouter>
