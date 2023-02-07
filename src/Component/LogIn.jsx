@@ -25,6 +25,10 @@ const LogIn = () => {
         .then(res => {
             localStorage.setItem("userData", JSON.stringify(res.data))
             localStorage.setItem("token", JSON.stringify(res.data.token).replace('"', "").replace('"', ""))
+                setTimeout(() => {
+                    localStorage.removeItem("userData");
+                    navigate("/login")
+                }, "28800000")
             setUser(res.data)
             navigate("/")})
             .finally(reset({
