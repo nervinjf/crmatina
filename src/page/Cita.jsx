@@ -60,7 +60,7 @@ const Cita = () => {
                         setIsCheckNull(true)
                         setTimeout(() => {
                             setIsCheckNull(false);
-                        }, "3500")
+                        }, "1500")
                     }
                 })
                 .then(() => getUsers())
@@ -68,7 +68,7 @@ const Cita = () => {
                     setIsCheck(true)
                     setTimeout(() => {
                         setIsCheck(false);
-                    }, "3500")
+                    }, "1500")
                 })
         }
         clear()

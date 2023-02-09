@@ -58,10 +58,10 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
                         setIsCheckNull(true)
                         setTimeout(() => {
                             setIsCheckNull(false);
-                        }, "3500")
+                        }, "1500")
                         setTimeout(() => {
                             setUpdateTomador(false);
-                        }, "3550")
+                        }, "2000")
                     }
                 })
                 .then(() => getUsers())
@@ -69,10 +69,10 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
                     setIsCheck(true)
                     setTimeout(() => {
                         setIsCheck(false);
-                    }, "3500")
+                    }, "1500")
                     setTimeout(() => {
                         setUpdateTomador(false);
-                    }, "3550")
+                    }, "2000")
                 })
 
         } else {
@@ -85,10 +85,10 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
                         setIsCheckNull(true)
                         setTimeout(() => {
                             setIsCheckNull(false);
-                        }, "3500")
+                        }, "1500")
                         setTimeout(() => {
                             setUpdateTomador(false);
-                        }, "3550")
+                        }, "2000")
                     }
                 })
                 .then(() => getUsers())
@@ -96,10 +96,10 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
                     setIsCheck(true)
                     setTimeout(() => {
                         setIsCheck(false);
-                    }, "3500")
+                    }, "1500")
                     setTimeout(() => {
                         setUpdateTomador(false);
-                    }, "3550")
+                    }, "2000")
                 })
         }
         clear()

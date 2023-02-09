@@ -88,10 +88,10 @@ const RegisterContact = ({id, setRegisterContact}) => {
                                 setIsCheckNull(true)
                                 setTimeout(() => {
                                     setIsCheckNull(false);
-                                }, "3500")
+                                }, "1500")
                                 setTimeout(() => {
                                     setRegisterContact(false);
-                                }, "3550")
+                                }, "2000")
                             }
                         })
                         // .then(() => getUsers())
@@ -99,10 +99,10 @@ const RegisterContact = ({id, setRegisterContact}) => {
                             setIsCheck(true)
                             setTimeout(() => {
                                 setIsCheck(false);
-                            }, "3500")
+                            }, "1500")
                             setTimeout(() => {
                                 setRegisterContact(false);
-                            }, "3550")
+                            }, "2000")
                         })
                         reset({
                             "origen": "",

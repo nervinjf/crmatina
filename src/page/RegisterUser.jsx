@@ -21,14 +21,14 @@ const RegisterUser = () => {
                 setIsCheckNull(true)
                 setTimeout(() => {
                     setIsCheckNull(false);
-                }, "3500")
+                }, "1500")
             }
         })
         .finally(() => {
             setIsCheck(true)
             setTimeout(() => {
                 setIsCheck(false);
-            }, "3500")
+            }, "1500")
         })
         reset({
             "firstname": "",

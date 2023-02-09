@@ -66,10 +66,10 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                         setIsCheckNull(true)
                         setTimeout(() => {
                             setIsCheckNull(false);
-                        }, "3500")
+                        }, "1500")
                         setTimeout(() => {
                             setRegisterCitaC(false);
-                        }, "3550")
+                        }, "2000")
                     }
                 })
                 .then(() => getUsers())
@@ -77,10 +77,10 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                     setIsCheck(true)
                     setTimeout(() => {
                         setIsCheck(false);
-                    }, "3500")
+                    }, "1500")
                     setTimeout(() => {
                         setRegisterCitaC(false);
-                    }, "3550")
+                    }, "2000")
                 })
 
         } else {
@@ -93,10 +93,10 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                         setIsCheckNull(true)
                         setTimeout(() => {
                             setIsCheckNull(false);
-                        }, "3500")
+                        }, "1500")
                         setTimeout(() => {
                             setRegisterCitaC(false);
-                        }, "3550")
+                        }, "2000")
                     }
                 })
                 .then(() => getUsers())
@@ -104,10 +104,10 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                     setIsCheck(true)
                     setTimeout(() => {
                         setIsCheck(false);
-                    }, "3500")
+                    }, "1500")
                     setTimeout(() => {
                         setRegisterCitaC(false);
-                    }, "3550")
+                    }, "2000")
                 })
         }
         clear()
