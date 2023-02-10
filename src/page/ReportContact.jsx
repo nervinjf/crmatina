@@ -10,11 +10,65 @@ import getConfig from '../utils/getConfig';
 const ReportContact = () => {
 
     const [getTomador, setGetTomador] = useState([]);
+    const [test, setTest] = useState(true)
+    const [test4, setTest4] = useState(true)
+    const [test5, setTest5] = useState(true)
+    const [getFilterFD, setGetFilterFD] = useState("")
+    const [getFilterFH, setGetFilterFH] = useState("")
+    const [ dataFilter, setDataFilter] = useState([]);
+    const [getFilterContacthoy, setGetFilterContacthoy] = useState(false)
+
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto', getConfig())
             .then(res => setGetTomador(res.data))
-    }, [])
+
+        if(getTomador !== ""){
+            setDataFilter(getTomador)
+        }
+    }, [test])
+
+    useEffect(() => {
+        
+        if (getFilterFH !== ""){
+            setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
+        }
+
+    }, [test4])
+
+    // create a new `Date` object
+    let today = new Date();     
+
+// `getDate()` returns the day of the month (from 1 to 31)
+    let day = today.getDate();
+
+// `getMonth()` returns the month (from 0 to 11)
+    let month = today.getMonth() + 1;
+
+// `getFullYear()` returns the full year
+    let year = today.getFullYear(); 
+
+    useEffect(() => {
+        
+        if (getFilterContacthoy === true){
+            setDataFilter(dataFilter.filter((e => e.createdAt === `${year}-${month}-${day}`)))
+        }
+
+    }, [test5])
+
+    console.log(getTomador.filter(fecha => fecha.createdAt >= "2023-02-10"))
+
+    setTimeout(() => {
+        setTest(test != true ? true : false);
+    }, "1500")
+
+    setTimeout(() => {
+        setTest4(test != true ? true : false);
+    }, "1500")
+
+    setTimeout(() => {
+        setTest5(test != true ? true : false);
+    }, "1500")
 
 
 
@@ -38,14 +92,30 @@ const ReportContact = () => {
     return (
         <div className='container-report-table'>
             <div className='container-report-table-button'>
-            <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i> 
+            <div className='container-report-table-button-filter'>
+                    <div className='container-report-table-filter-f'>
+                        <div className='gapp'>
+                            <label htmlFor="filter">De: </label>
+                            <input type="date" onChange={(e) => setGetFilterFD(e.target.value)} />
+                        </div>
+                        <div className='gapp'>
+                            <label htmlFor="filter">Hasta: </label>
+                            <input type="date" onChange={(e) => setGetFilterFH(e.target.value)} />
+                        </div>
+                    </div>
+                    <div className='container-report-table-filter'>
+                            <label htmlFor="filter">Contactos de hoy:</label>
+                            <input type="checkbox" onChange={(e) => setGetFilterContacthoy(e.target.checked)} />
+                    </div>
+                </div>
+                <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
             <div className='container-report-table-t'>
             {
                 getTomador &&
                 <HotTable
                     ref={hotTableComponent}
-                    data={getTomador}
+                    data={dataFilter === getTomador ? getTomador : dataFilter}
                     language={esMX.languageCode}
                     licenseKey="non-commercial-and-evaluation"
                     colHeaders={true}
@@ -76,6 +146,10 @@ const ReportContact = () => {
 
                 </HotTable>
             }
+            </div>
+            <div className='count-length-datos'>
+                <h5>Count:</h5>
+                <p>{dataFilter === getTomador ? getTomador.length : dataFilter.length}</p>
             </div>
         </div>
     );
