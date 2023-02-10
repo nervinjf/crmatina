@@ -1,15 +1,15 @@
 // import axios from 'axios';
 // import React, { useEffect, useState } from 'react';
-// import { HotColumn, HotTable } from '@handsontable/react';
-// import "handsontable/dist/handsontable.full.css";
-// import { registerAllModules } from 'handsontable/registry';
-// import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+import { HotColumn, HotTable } from '@handsontable/react';
+import "handsontable/dist/handsontable.full.css";
+import { registerAllModules } from 'handsontable/registry';
+import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
 import React from 'react';
-import PivotTableUI from "react-pivottable/PivotTableUI";
-import "react-pivottable/pivottable.css";
-import TableRenderers from "react-pivottable/TableRenderers";
-import Plot from "react-plotly.js";
-import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
+// import PivotTableUI from "react-pivottable/PivotTableUI";
+// import "react-pivottable/pivottable.css";
+// import TableRenderers from "react-pivottable/TableRenderers";
+// import Plot from "react-plotly.js";
+// import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -27,24 +27,24 @@ const ReportCita = () => {
     const [getFilterCedula, setGetFilterCedula] = useState("")
     const [getFilterCita, setGetFilterCita] = useState(false)
     const [getFilterCotizacion, setGetFilterCotizacion] = useState(false)
-    const [ dataFilter, setDataFilter] = useState([]);
+    const [dataFilter, setDataFilter] = useState([]);
 
-    const PlotlyRenderers = createPlotlyRenderers(Plot);
+    // const PlotlyRenderers = createPlotlyRenderers(Plot);
     const [state, setState] = useState([]);
 
 
     useEffect(() => {
-        
-        if(getTomador !== ""){
+
+        if (getTomador !== "") {
             setDataFilter(getTomador)
         }
 
     }, [test])
 
-    console.log(dataFilter)
+    // console.log(dataFilter)
 
     useEffect(() => {
-        
+
         if (getFilterCedula !== "") {
             setDataFilter(dataFilter?.filter(e => Number(e.tomador.ci) === Number(getFilterCedula)))
         }
@@ -52,7 +52,7 @@ const ReportCita = () => {
     }, [test])
 
     useEffect(() => {
-        
+
         if (getFilterStatus) {
             setDataFilter(dataFilter.filter(e => e.statusSuscripcion === getFilterStatus))
         }
@@ -60,32 +60,32 @@ const ReportCita = () => {
     }, [test])
 
     useEffect(() => {
-        
-        if (getFilterPlan){
+
+        if (getFilterPlan) {
             setDataFilter(dataFilter.filter(e => e.plan === getFilterPlan))
         }
 
     }, [test])
 
     useEffect(() => {
-        
-        if (getFilterFH){
+
+        if (getFilterFH) {
             setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
         }
 
     }, [test])
 
     useEffect(() => {
-        
-        if (getFilterCita){
+
+        if (getFilterCita) {
             setDataFilter(dataFilter.filter((e => e.fecha)))
         }
 
     }, [test])
 
     useEffect(() => {
-        
-        if (getFilterCotizacion){
+
+        if (getFilterCotizacion) {
             setDataFilter(dataFilter.filter((e => e.enviaCotiza)))
         }
 
@@ -94,15 +94,12 @@ const ReportCita = () => {
     setTimeout(() => {
         setTest(test != true ? true : false);
     }, "1800")
-    
 
 
+    registerAllModules();
+    registerLanguageDictionary(esMX);
 
-
-    // registerAllModules();
-    // registerLanguageDictionary(esMX)
-
-    // const hotTableComponent = React.useRef(null);
+    const hotTableComponent = React.useRef(null);
 
     const descargarArchivo = () => {
         const pluginDescarga = hotTableComponent.current.hotInstance.getPlugin("exportFile");
@@ -126,10 +123,14 @@ const ReportCita = () => {
         // setGetFilterC(getTomador.filter(e => e.fecha))
 
         // setGetFilterFecha(filteredPrice)
-      
-        // console.log(getFilterCitaALL)
+
+
 
     }, [])
+
+    const ddddd = getTomador.filter(e => e.plan === "Premium - 100.000$");
+
+    console.log(ddddd)
 
 
     return (
@@ -148,8 +149,16 @@ const ReportCita = () => {
                         <label htmlFor="filter">Plan: </label>
                         <select name="" id="" onChange={(e) => setGetFilterPlan(e.target.value)}>
                             <option value="">--Seleccione tipo de Poliza--</option>
-                            <option value="Premium - 50.000$">Premium - 50.000$</option>
-                            <option value="Elite - 200.000$">Elite - 200.000$</option>
+                            <optgroup label="Plan Salud">
+                                <option value="Premium - 50.000$">Premium - 50.000$</option>
+                                <option value="Premium - 100.000$">Premium - 100.000$</option>
+                                <option value="Elite - 200.000$">Elite - 200.000$</option>
+                                <option value="Póliza Integral - 1.000.000$">Póliza Integral - 1.000.000$</option>
+                            </optgroup>
+                            <optgroup label="Plan Mascota">
+                            <option value="Gold - 1.000$">Gold - 1.000$</option>
+                            <option value="Platinum - 2.000$">Platinum - 2.000$</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div className='container-report-table-filter-f'>
@@ -163,65 +172,65 @@ const ReportCita = () => {
                         </div>
                     </div>
                     <div className='container-report-table-filter'>
-                            <label htmlFor="filter">Cita:</label>
-                            <input type="checkbox" onChange={(e) => setGetFilterCita(e.target.checked)} />
+                        <label htmlFor="filter">Cita:</label>
+                        <input type="checkbox" onChange={(e) => setGetFilterCita(e.target.checked)} />
                     </div>
                     <div className='container-report-table-filter'>
-                            <label htmlFor="filter">Cotizacion:</label>
-                            <input type="checkbox" onChange={(e) => setGetFilterCotizacion(e.target.checked)} />
+                        <label htmlFor="filter">Cotizacion:</label>
+                        <input type="checkbox" onChange={(e) => setGetFilterCotizacion(e.target.checked)} />
                     </div>
                     <div className='container-report-table-filter acomodar'>
-                            <label htmlFor="filter">Cedula:</label>
-                            <input type="text" value={getFilterCedula} onChange={(e) => setGetFilterCedula(e.target.value)} />
+                        <label htmlFor="filter">Cedula:</label>
+                        <input type="text" value={getFilterCedula} onChange={(e) => setGetFilterCedula(e.target.value)} />
                     </div>
                 </div>
                 <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
             </div>
             <div className='container-report-table-t'>
-            <PivotTableUI
+                {/* <PivotTableUI
                 data={dataFilter === getTomador ? getTomador : dataFilter}
                 renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
                 onChange={(s) => {
                     setState(s);
                 }}
                 {...state}
-            />
-            {/* {
-                getTomador &&
-                <HotTable
-                    ref={hotTableComponent}
-                    data={dataFilter === getTomador ? getTomador : dataFilter}
-                    language={esMX.languageCode}
-                    licenseKey="non-commercial-and-evaluation"
-                    colHeaders={true}
-                    rowHeaders={true}
-                    columnSorting={true}
-                    mergeCells={true}
-                    contextMenu={true}
-                    // filters={true}
-                    filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
-                        "not_between", "not_contains", "not_empty", "neq"]}
-                    dropdownMenu={true}
+            /> */}
+                {
+                    getTomador &&
+                    <HotTable
+                        ref={hotTableComponent}
+                        data={dataFilter === getTomador ? getTomador : dataFilter}
+                        language={esMX.languageCode}
+                        licenseKey="non-commercial-and-evaluation"
+                        colHeaders={true}
+                        rowHeaders={true}
+                        columnSorting={true}
+                        mergeCells={true}
+                        contextMenu={true}
+                        // filters={true}
+                        filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
+                            "not_between", "not_contains", "not_empty", "neq"]}
+                        dropdownMenu={true}
 
-                >
-                    <HotColumn data="tomador.firstname" title='Nombre' readOnly={true}/>
-                    <HotColumn data="tomador.lastname" title='Apellido' readOnly={true}/>
-                    <HotColumn data="tomador.ci" title='CI' readOnly={true}/>
-                    <HotColumn data="fecha" title='Fecha Cita' readOnly={true}/>
-                    <HotColumn data="statusSuscripcion" title='Status Suscripcion' readOnly={true}/>
-                    <HotColumn data="modoCita" title='Modalidad Cita' readOnly={true}/>
-                    <HotColumn data="citaAcomp" title='Acompañantes' readOnly={true}/>
-                    <HotColumn data="enviaCotiza" title='Envio Cotizacion' readOnly={true}/>
-                    <HotColumn data="fCliente" title='Fecha envio planilla' readOnly={true}/>
-                    <HotColumn data="fDevolucion" title='Fecha devolucion planilla' readOnly={true}/>
-                    <HotColumn data="poliza" title='Monto Poliza' readOnly={true}/>
-                    <HotColumn data="Users.firstname" title='Usuario' readOnly={true}/>
-
-
+                    >
+                        <HotColumn data="tomador.firstname" title='Nombre' readOnly={true} />
+                        <HotColumn data="tomador.lastname" title='Apellido' readOnly={true} />
+                        <HotColumn data="tomador.ci" title='CI' readOnly={true} />
+                        <HotColumn data="fecha" title='Fecha Cita' readOnly={true} />
+                        <HotColumn data="statusSuscripcion" title='Status Suscripcion' readOnly={true} />
+                        <HotColumn data="modoCita" title='Modalidad Cita' readOnly={true} />
+                        <HotColumn data="citaAcomp" title='Acompañantes' readOnly={true} />
+                        <HotColumn data="enviaCotiza" title='Envio Cotizacion' readOnly={true} />
+                        <HotColumn data="fCliente" title='Fecha envio planilla' readOnly={true} />
+                        <HotColumn data="fDevolucion" title='Fecha devolucion planilla' readOnly={true} />
+                        <HotColumn data="poliza" title='Monto Poliza' readOnly={true} />
+                        <HotColumn data="Users.firstname" title='Usuario' readOnly={true} />
 
 
-                </HotTable>
-            } */}
+
+
+                    </HotTable>
+                }
             </div>
             <div className='count-length-datos'>
                 <h5>Count:</h5>
