@@ -125,7 +125,8 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
     let value = 0;
 
     useEffect(() => {
-        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Premium - 50.000$", "Premium - 100.000$", "Elite - 200.000$", "Póliza Integral - 1.000.000$"]) :
+        const optionsMotivo2 = infoTipo === "Salud" ? setInfoPlan(["Access - 5.000$", "Access - 10.000$", "Access - 20.000$", "Access - 30.000$",
+        "Premium - 50.000$", "Premium - 100.000$", "Elite - 200.000$", "Póliza Integral - 1.000.000$"]) :
             infoTipo === "Mascotas" ? setInfoPlan(["Gold - 1.000$", "Platinum - 2.000$"]) : "";
 
 
@@ -135,7 +136,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
-
+console.log(infoTipo, infoPlan)
 
     return (
         <div className='blurcheck2'>
