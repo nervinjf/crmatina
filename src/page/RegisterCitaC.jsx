@@ -57,9 +57,9 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
 
     const registrarDatosCitas = (data) => {
         if (updateCita) {
-            const dataPut = { "statusSuscripcion": data.statusSuscripcion }
-            console.log(data.id)
-            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut, getConfig())
+            // const dataPut = { "statusSuscripcion": data.statusSuscripcion }
+            // console.log(data)
+            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, data, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -136,7 +136,6 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
-console.log(infoTipo, infoPlan)
 
     return (
         <div className='blurcheck2'>
