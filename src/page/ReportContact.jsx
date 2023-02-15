@@ -1,98 +1,162 @@
+
+import React from 'react';
+import { useState, useMemo } from 'react';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { HotColumn, HotTable } from '@handsontable/react';
-import "handsontable/dist/handsontable.full.css";
-import { registerAllModules } from 'handsontable/registry';
-import { registerLanguageDictionary, esMX } from 'handsontable/i18n';
+import { useEffect } from 'react';
 import getConfig from '../utils/getConfig';
+import Table from 'react-bootstrap/Table';
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { useRef } from 'react';
 
-
+const columnHelper = createColumnHelper();
+const columns = [
+    columnHelper.group({
+        header: "Tomador",
+        columns: [
+            columnHelper.accessor(({ tomador }) => tomador.firstname, {
+                id: "firstname",
+                header: "Nombre",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.lastname, {
+                id: "lastname",
+                header: "Apellido",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.ci, {
+                id: "ci",
+                header: "CI",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.email, {
+                id: "email",
+                header: "email",
+            }),
+        ]
+    }),
+    columnHelper.group({
+        header: 'Contacto',
+        columns: [
+            columnHelper.accessor(({ origen }) => origen, {
+                id: "origen",
+                header: "Origen",
+            }),
+            columnHelper.accessor(({ fuente }) => fuente, {
+                id: "fuente",
+                header: "Fuente",
+            }),
+            columnHelper.accessor(({ proposito }) => proposito, {
+                id: "proposito",
+                header: "Proposito",
+            }),
+            columnHelper.accessor(({ motivo1 }) => motivo1, {
+                id: "motivo1",
+                header: "Motivo1",
+            }),
+            columnHelper.accessor(({ motivo2 }) => motivo2, {
+                id: "motivo2",
+                header: "Motivo2",
+            }),
+            columnHelper.accessor(({ motivo3 }) => motivo3, {
+                id: "motivo3",
+                header: "Motivo3",
+            }),
+            columnHelper.accessor(({ observacion }) => observacion, {
+                id: "observacion",
+                header: "Observacion",
+            }),
+            columnHelper.accessor(({ createdAt }) => new Date(createdAt).toLocaleString('es-VE', { timeZone: 'UTC' }), {
+                id: "createdAt",
+                header: "Fecha de creacion",
+            }),
+        ]
+    }),
+    // columnHelper.group({
+    //     header: 'Usuario',
+    //     columns: [
+    //         columnHelper.accessor(({ Users }) => Users.firstname, {
+    //             id: "firstnameU",
+    //             header: "Nombre",
+    //         }),
+    //         columnHelper.accessor(({ Users }) => Users.lastname, {
+    //             id: "lastnameU",
+    //             header: "Apellido",
+    //         }),
+    //     ]
+    // })
+    
+]
 const ReportContact = () => {
-
     const [getTomador, setGetTomador] = useState([]);
     const [test, setTest] = useState(true)
-    const [test4, setTest4] = useState(true)
-    const [test5, setTest5] = useState(true)
+    const [getFilterStatus, setGetFilterStatus] = useState("");
+    const [getFilterPlan, setGetFilterPlan] = useState("");
     const [getFilterFD, setGetFilterFD] = useState("")
     const [getFilterFH, setGetFilterFH] = useState("")
-    const [ dataFilter, setDataFilter] = useState([]);
-    const [getFilterContacthoy, setGetFilterContacthoy] = useState(false)
+    const [getFilterCedula, setGetFilterCedula] = useState("")
+    const [getFilterFHoy, setGetFilterFHoy] = useState(false)
+    const [getFilterCotizacion, setGetFilterCotizacion] = useState(false)
+    const [dataFilter, setDataFilter] = useState([]);
 
+    const [data, setData] = useState([]);
+    const defaultData = useMemo(() => [], [])
+
+    console.log(data)
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto', getConfig())
-            .then(res => setGetTomador(res.data))
 
-        if(getTomador !== ""){
-            setDataFilter(getTomador)
+        if (data !== "") {
+            setDataFilter(data)
         }
+
     }, [test])
 
     useEffect(() => {
-        
-        if (getFilterFH !== ""){
+
+        if (getFilterFH) {
             setDataFilter(dataFilter.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
         }
 
-    }, [test4])
-
-    // create a new `Date` object
-    let today = new Date();     
-
-// `getDate()` returns the day of the month (from 1 to 31)
-    let day = today.getDate();
-
-// `getMonth()` returns the month (from 0 to 11)
-    let month = today.getMonth() + 1;
-
-// `getFullYear()` returns the full year
-    let year = today.getFullYear(); 
+    }, [test])
 
     useEffect(() => {
-        
-        if (getFilterContacthoy === true){
-            setDataFilter(dataFilter.filter((e => e.createdAt === `${year}-${month}-${day}`)))
+
+        if (getFilterFHoy) {
+            setDataFilter(dataFilter.filter((e => e.createdAt === getFilterFHoy)))
         }
 
-    }, [test5])
-
-    console.log(getTomador.filter(fecha => fecha.createdAt >= "2023-02-10"))
+    }, [test])
 
     setTimeout(() => {
         setTest(test != true ? true : false);
-    }, "1500")
+    }, "1800")
 
-    setTimeout(() => {
-        setTest4(test != true ? true : false);
-    }, "1500")
+    
 
-    setTimeout(() => {
-        setTest5(test != true ? true : false);
-    }, "1500")
+    useEffect(() => {
+        axios.get('https://atina-neb-production.up.railway.app/api/v1/contacto', getConfig())
+            .then(res => setData(res.data));
+    }, []);
 
+    const date = new Date()
 
+    const MESES = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+      ];
 
-    registerAllModules();
-    registerLanguageDictionary(esMX)
+    const dateNow = date.getDate() + '-' + MESES[date.getMonth()] + '-' + date.getFullYear();
 
-    const hotTableComponent = React.useRef(null);
+    const table = useReactTable({
+        data: dataFilter === data ? data : dataFilter,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
 
-    const descargarArchivo = () => {
-        const pluginDescarga = hotTableComponent.current.hotInstance.getPlugin("exportFile");
-
-        pluginDescarga.downloadFile("csv", {
-            filename: "Report",
-            fileExtension: "csv",
-            MimeType: "text/csv",
-            columnHeaders: true,
-        })
-    }
-
+    const tableRef = useRef(null);
 
     return (
         <div className='container-report-table'>
             <div className='container-report-table-button'>
-            <div className='container-report-table-button-filter'>
+                <div className='container-report-table-button-filter'>
                     <div className='container-report-table-filter-f'>
                         <div className='gapp'>
                             <label htmlFor="filter">De: </label>
@@ -104,54 +168,66 @@ const ReportContact = () => {
                         </div>
                     </div>
                     <div className='container-report-table-filter'>
-                            <label htmlFor="filter">Contactos de hoy:</label>
-                            <input type="checkbox" onChange={(e) => setGetFilterContacthoy(e.target.checked)} />
+                        <label htmlFor="filter">Cotizaciones de hoy:</label>
+                        <input type="checkbox" onChange={(e) => setGetFilterFHoy(e.target.checked)} />
                     </div>
                 </div>
-                <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
+                <DownloadTableExcel
+                    filename={'Reporte Contactos' + " " +dateNow}
+                    sheet="Citas"
+                    currentTableRef={tableRef.current}
+                >
+
+                   <button><i class="fa-solid fa-cloud-arrow-down"></i></button>
+
+                </DownloadTableExcel>
             </div>
             <div className='container-report-table-t'>
-            {
-                getTomador &&
-                <HotTable
-                    ref={hotTableComponent}
-                    data={dataFilter === getTomador ? getTomador : dataFilter}
-                    language={esMX.languageCode}
-                    licenseKey="non-commercial-and-evaluation"
-                    colHeaders={true}
-                    rowHeaders={true}
-                    columnSorting={true}
-                    mergeCells={true}
-                    contextMenu={true}
-                    // filters={true}
-                    filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
-                        "not_between", "not_contains", "not_empty", "neq"]}
-                    dropdownMenu={true}
+                <Table striped bordered hover ref={tableRef}>
+                    <thead>
+                        {
+                            table.getHeaderGroups().map(headerGroup => (
+                                <tr key={headerGroup.id} align='center'>
+                                    {
+                                        headerGroup.headers.map(header => (
+                                            <th align="center" key={header.id} colSpan={header.colSpan}>
+                                                {header.isPlaceholder ? null :
+                                                    flexRender(header.column.columnDef.header,
+                                                        header.getContext())
+                                                }
+                                            </th>
 
-                >
-                    <HotColumn data="origen" title='Origen' readOnly={true}/>
-                    <HotColumn data="fuente" title='Fuente' readOnly={true}/>
-                    <HotColumn data="proposito" title='proposito' readOnly={true}/>
-                    <HotColumn data="estatus" title='estatus' readOnly={true}/>
-                    <HotColumn data="motivo1" title='motivo1' readOnly={true}/>
-                    <HotColumn data="motivo2" title='motivo2' readOnly={true}/>
-                    <HotColumn data="motivo3" title='motivo3' readOnly={true}/>
-                    <HotColumn data="observacion" title='observacion' readOnly={true}/>
-                    <HotColumn data="tomador.firstname" title='Nombre' readOnly={true}/>
-                    <HotColumn data="tomador.lastname" title='Apellido' readOnly={true}/>
-                    <HotColumn data="tomador.ci" title='CI' readOnly={true}/>
-
-
-
-
-                </HotTable>
-            }
-            </div>
-            <div className='count-length-datos'>
-                <h5>Count:</h5>
-                <p>{dataFilter === getTomador ? getTomador.length : dataFilter.length}</p>
-            </div>
-        </div>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </thead>
+                    <tbody  >
+                        {
+                            table.getRowModel().rows.map(row => (
+                                <tr key={row.id}>
+                                    {
+                                        row.getVisibleCells().map(cell => (
+                                            <td key={cell.id} align="center">
+                                                {
+                                                    flexRender(cell.column.columnDef.cell,
+                                                        cell.getContext())
+                                                }
+                                            </td>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table >
+            </div >
+    <div className='count-length-datos'>
+        <h5>Count:</h5>
+        <p>{dataFilter === data ? data?.length : dataFilter?.length}</p>
+    </div>
+        </div >
     );
 };
 

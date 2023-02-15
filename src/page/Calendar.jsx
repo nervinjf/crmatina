@@ -45,13 +45,11 @@ const Calendar = () => {
         <button onClick={() => setButtonR("cita")}>Cita</button>
         <button onClick={() => setButtonR("cotiza")}>Cotizacion</button>
         <button onClick={() => setButtonR("contact")}>Contacto</button>
-        <button onClick={() => setButtonR("tomador")}>Tomador</button>
       </div>
       <div>
         {
            buttonR === "cita" ? <ReportCita /> : 
-           buttonR === "cotiza" ? <ReportCotiz /> : 
-           buttonR === "tomador" ? <ReportTomador /> : 
+           buttonR === "cotiza" ? <ReportCotiz /> :  
            buttonR === "contact" ? <ReportContact /> : ""           
         }
       </div>

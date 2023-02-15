@@ -1,20 +1,85 @@
-// import axios from 'axios';
-// import React, { useEffect, useState } from 'react';
-import { HotColumn, HotTable } from '@handsontable/react';
-import "handsontable/dist/handsontable.full.css";
-import { registerAllModules } from 'handsontable/registry';
-import { registerLanguageDictionary, esMX } from 'handsontable/i18n'
+
 import React from 'react';
-// import PivotTableUI from "react-pivottable/PivotTableUI";
-// import "react-pivottable/pivottable.css";
-// import TableRenderers from "react-pivottable/TableRenderers";
-// import Plot from "react-plotly.js";
-// import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import getConfig from '../utils/getConfig';
+import Table from 'react-bootstrap/Table';
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { useRef } from 'react';
 
+const columnHelper = createColumnHelper();
+const columns = [
+    columnHelper.group({
+        header: "Tomador",
+        columns: [
+            columnHelper.accessor(({ tomador }) => tomador.firstname, {
+                id: "firstname",
+                header: "Nombre",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.lastname, {
+                id: "lastname",
+                header: "Apellido",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.ci, {
+                id: "ci",
+                header: "CI",
+            }),
+            columnHelper.accessor(({ tomador }) => tomador.email, {
+                id: "email",
+                header: "email",
+            }),
+        ]
+    }),
+    columnHelper.group({
+        header: 'Cita',
+        columns: [
+            columnHelper.accessor(({ enviaCotiza }) => enviaCotiza, {
+                id: "enviaCotiza",
+                header: "Envio Cotazacion",
+            }),
+            columnHelper.accessor(({ statusSuscripcion }) => statusSuscripcion, {
+                id: "statusSuscripcion",
+                header: "Estatus",
+            }),
+            columnHelper.accessor(({ fecha }) => new Date(fecha).toLocaleString('es-VE', { timeZone: 'UTC' }), {
+                id: "fecha",
+                header: "Fecha de cita",
+            }),
+            columnHelper.accessor(({ modoCita }) => modoCita, {
+                id: "modoCita",
+                header: "Modo de Cita",
+            }),
+            columnHelper.accessor(({ primaAnual }) => primaAnual, {
+                id: "primaAnual",
+                header: "Prima Anual",
+            }),
+            columnHelper.accessor(({ poliza }) => poliza, {
+                id: "poliza",
+                header: "Poliza",
+            }),
+            columnHelper.accessor(({ createdAt }) => new Date(createdAt).toLocaleString('es-VE', { timeZone: 'UTC' }), {
+                id: "createdAt",
+                header: "Fecha de creacion",
+            }),
+        ]
+    }),
+    columnHelper.group({
+        header: 'Usuario',
+        columns: [
+            columnHelper.accessor(({ Users }) => Users.firstname, {
+                id: "firstnameU",
+                header: "Nombre",
+            }),
+            columnHelper.accessor(({ Users }) => Users.lastname, {
+                id: "lastnameU",
+                header: "Apellido",
+            }),
+        ]
+    })
+    
+]
 
 const ReportCita = () => {
 
@@ -25,44 +90,20 @@ const ReportCita = () => {
     const [getFilterFD, setGetFilterFD] = useState("")
     const [getFilterFH, setGetFilterFH] = useState("")
     const [getFilterCedula, setGetFilterCedula] = useState("")
-    const [getFilterCita, setGetFilterCita] = useState(false)
+    const [getFilterFHoy, setGetFilterFHoy] = useState(false)
     const [getFilterCotizacion, setGetFilterCotizacion] = useState(false)
     const [dataFilter, setDataFilter] = useState([]);
 
-    // const PlotlyRenderers = createPlotlyRenderers(Plot);
-    const [state, setState] = useState([]);
+    const [data, setData] = useState([]);
+    const defaultData = useMemo(() => [], [])
 
-
-    useEffect(() => {
-
-        if (getTomador !== "") {
-            setDataFilter(getTomador)
-        }
-
-    }, [test])
-
-    // console.log(dataFilter)
+    console.log(data)
 
     useEffect(() => {
 
-        if (getFilterCedula !== "") {
-            setDataFilter(dataFilter?.filter(e => Number(e.tomador.ci) === Number(getFilterCedula)))
-        }
-
-    }, [test])
-
-    useEffect(() => {
-
-        if (getFilterStatus) {
-            setDataFilter(dataFilter.filter(e => e.statusSuscripcion === getFilterStatus))
-        }
-
-    }, [test])
-
-    useEffect(() => {
-
-        if (getFilterPlan) {
-            setDataFilter(dataFilter.filter(e => e.plan === getFilterPlan))
+        if (data !== "") {
+            // setData(data.filter)
+            setDataFilter(data)
         }
 
     }, [test])
@@ -77,16 +118,8 @@ const ReportCita = () => {
 
     useEffect(() => {
 
-        if (getFilterCita) {
-            setDataFilter(dataFilter.filter((e => e.fecha)))
-        }
-
-    }, [test])
-
-    useEffect(() => {
-
-        if (getFilterCotizacion) {
-            setDataFilter(dataFilter.filter((e => e.enviaCotiza)))
+        if (getFilterFHoy) {
+            setDataFilter(dataFilter.filter((e => e.createdAt === getFilterFHoy)))
         }
 
     }, [test])
@@ -95,72 +128,34 @@ const ReportCita = () => {
         setTest(test != true ? true : false);
     }, "1800")
 
-
-    registerAllModules();
-    registerLanguageDictionary(esMX);
-
-    const hotTableComponent = React.useRef(null);
-
-    const descargarArchivo = () => {
-        const pluginDescarga = hotTableComponent.current.hotInstance.getPlugin("exportFile");
-
-        pluginDescarga.downloadFile("csv", {
-            filename: "Report",
-            fileExtension: "csv",
-            MimeType: "text/csv",
-            columnHeaders: true,
-        })
-    }
+    
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/cita', getConfig())
-            .then(res => setGetTomador(res.data))
-        // setGetFilterPlan2(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo))
-        // const filteredPrice = getTomador.filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH)
-        // setGetFilterFechaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH))
-        // setGetFilterCitaALL(getTomador.filter(e => e.plan === getFilterPlan).filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
-        // setGetFilterCitaSnPlan(getTomador.filter(e => e.tipo === getFilterTipo).filter(fecha => fecha.createdAt >= getFilterFD && fecha.createdAt <= getFilterFH).filter(e => e.fecha ))
-        // setGetFilterC(getTomador.filter(e => e.fecha))
+            .then(res => setData(res.data.filter(fecha => fecha.fecha > '01/01/2000')));
+    }, []);
 
-        // setGetFilterFecha(filteredPrice)
+    const date = new Date()
 
+    const MESES = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+      ];
 
+    const dateNow = date.getDate() + '-' + MESES[date.getMonth()] + '-' + date.getFullYear();
 
-    }, [])
+    const table = useReactTable({
+        data: dataFilter === data ? data : dataFilter,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
 
-    const ddddd = getTomador.filter(e => e.plan === "Premium - 100.000$");
-
-    console.log(ddddd)
-
+    const tableRef = useRef(null);
 
     return (
         <div className='container-report-table'>
             <div className='container-report-table-button'>
                 <div className='container-report-table-button-filter'>
-                    <div className='container-report-table-filter'>
-                        <label htmlFor="filter">Status: </label>
-                        <select name="" id="" onChange={(e) => setGetFilterStatus(e.target.value)}>
-                            <option value="">--Seleccione tipo de Poliza--</option>
-                            <option value="Proceso">Proceso</option>
-                            <option value="Concluido">Concluido</option>
-                        </select>
-                    </div>
-                    <div className='container-report-table-filter'>
-                        <label htmlFor="filter">Plan: </label>
-                        <select name="" id="" onChange={(e) => setGetFilterPlan(e.target.value)}>
-                            <option value="">--Seleccione tipo de Poliza--</option>
-                            <optgroup label="Plan Salud">
-                                <option value="Premium - 50.000$">Premium - 50.000$</option>
-                                <option value="Premium - 100.000$">Premium - 100.000$</option>
-                                <option value="Elite - 200.000$">Elite - 200.000$</option>
-                                <option value="Póliza Integral - 1.000.000$">Póliza Integral - 1.000.000$</option>
-                            </optgroup>
-                            <optgroup label="Plan Mascota">
-                            <option value="Gold - 1.000$">Gold - 1.000$</option>
-                            <option value="Platinum - 2.000$">Platinum - 2.000$</option>
-                            </optgroup>
-                        </select>
-                    </div>
                     <div className='container-report-table-filter-f'>
                         <div className='gapp'>
                             <label htmlFor="filter">De: </label>
@@ -172,71 +167,66 @@ const ReportCita = () => {
                         </div>
                     </div>
                     <div className='container-report-table-filter'>
-                        <label htmlFor="filter">Cita:</label>
-                        <input type="checkbox" onChange={(e) => setGetFilterCita(e.target.checked)} />
-                    </div>
-                    <div className='container-report-table-filter'>
-                        <label htmlFor="filter">Cotizacion:</label>
-                        <input type="checkbox" onChange={(e) => setGetFilterCotizacion(e.target.checked)} />
-                    </div>
-                    <div className='container-report-table-filter acomodar'>
-                        <label htmlFor="filter">Cedula:</label>
-                        <input type="text" value={getFilterCedula} onChange={(e) => setGetFilterCedula(e.target.value)} />
+                        <label htmlFor="filter">Citas de hoy:</label>
+                        <input type="checkbox" onChange={(e) => setGetFilterFHoy(e.target.checked)} />
                     </div>
                 </div>
-                <i class="fa-solid fa-cloud-arrow-down" onClick={() => descargarArchivo()}><button></button></i>
+                <DownloadTableExcel
+                    filename={'Reporte Cita' + " " +dateNow}
+                    sheet="Citas"
+                    currentTableRef={tableRef.current}
+                >
+
+                   <button><i class="fa-solid fa-cloud-arrow-down"></i></button>
+
+                </DownloadTableExcel>
             </div>
             <div className='container-report-table-t'>
-                {/* <PivotTableUI
-                data={dataFilter === getTomador ? getTomador : dataFilter}
-                renderers={Object.assign({}, TableRenderers, PlotlyRenderers)}
-                onChange={(s) => {
-                    setState(s);
-                }}
-                {...state}
-            /> */}
-                {
-                    getTomador &&
-                    <HotTable
-                        ref={hotTableComponent}
-                        data={dataFilter === getTomador ? getTomador : dataFilter}
-                        language={esMX.languageCode}
-                        licenseKey="non-commercial-and-evaluation"
-                        colHeaders={true}
-                        rowHeaders={true}
-                        columnSorting={true}
-                        mergeCells={true}
-                        contextMenu={true}
-                        // filters={true}
-                        filters={["begins_with", "between", "by_value", "contains", "empty", "ends_with", "eq", "gt", "gte", "lt", "lte", "none",
-                            "not_between", "not_contains", "not_empty", "neq"]}
-                        dropdownMenu={true}
+                <Table striped bordered hover ref={tableRef}>
+                    <thead>
+                        {
+                            table.getHeaderGroups().map(headerGroup => (
+                                <tr key={headerGroup.id} align='center'>
+                                    {
+                                        headerGroup.headers.map(header => (
+                                            <th align="center" key={header.id} colSpan={header.colSpan}>
+                                                {header.isPlaceholder ? null :
+                                                    flexRender(header.column.columnDef.header,
+                                                        header.getContext())
+                                                }
+                                            </th>
 
-                    >
-                        <HotColumn data="tomador.firstname" title='Nombre' readOnly={true} />
-                        <HotColumn data="tomador.lastname" title='Apellido' readOnly={true} />
-                        <HotColumn data="tomador.ci" title='CI' readOnly={true} />
-                        <HotColumn data="fecha" title='Fecha Cita' readOnly={true} />
-                        <HotColumn data="statusSuscripcion" title='Status Suscripcion' readOnly={true} />
-                        <HotColumn data="modoCita" title='Modalidad Cita' readOnly={true} />
-                        <HotColumn data="citaAcomp" title='Acompañantes' readOnly={true} />
-                        <HotColumn data="enviaCotiza" title='Envio Cotizacion' readOnly={true} />
-                        <HotColumn data="fCliente" title='Fecha envio planilla' readOnly={true} />
-                        <HotColumn data="fDevolucion" title='Fecha devolucion planilla' readOnly={true} />
-                        <HotColumn data="poliza" title='Monto Poliza' readOnly={true} />
-                        <HotColumn data="Users.firstname" title='Usuario' readOnly={true} />
-
-
-
-
-                    </HotTable>
-                }
-            </div>
-            <div className='count-length-datos'>
-                <h5>Count:</h5>
-                <p>{dataFilter === getTomador ? getTomador?.length : dataFilter?.length}</p>
-            </div>
-        </div>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </thead>
+                    <tbody  >
+                        {
+                            table.getRowModel().rows.map(row => (
+                                <tr key={row.id}>
+                                    {
+                                        row.getVisibleCells().map(cell => (
+                                            <td key={cell.id} align="center">
+                                                {
+                                                    flexRender(cell.column.columnDef.cell,
+                                                        cell.getContext())
+                                                }
+                                            </td>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table >
+            </div >
+    <div className='count-length-datos'>
+        <h5>Count:</h5>
+        <p>{dataFilter === data ? data?.length : dataFilter?.length}</p>
+    </div>
+        </div >
     );
 };
 

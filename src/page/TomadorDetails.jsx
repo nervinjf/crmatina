@@ -98,6 +98,7 @@ const TomadorDetails = () => {
                                     <th>Plan</th>
                                     <th>Tiempo</th>
                                     <th>Monto de poliza</th>
+                                    <th>Prima Anual</th>
                                     <th>Fec. Cita</th>
                                     <th>Status</th>
                                     <th>Editar</th>
@@ -114,6 +115,7 @@ const TomadorDetails = () => {
                                             <td>{user?.plan}</td>
                                             <td>{user?.tiempo}</td>
                                             <td>{user?.poliza}</td>
+                                            <td>{user?.primaAnual}</td>
                                             <td>{new Date(user?.fecha).toLocaleString('es-VE', { timeZone: 'UTC' })}</td>
                                             <td>{user?.statusSuscripcion}</td>
                                             <td><button onClick={() => updateCita(user)}><i class="fa-solid fa-pen-to-square"></i></button></td>

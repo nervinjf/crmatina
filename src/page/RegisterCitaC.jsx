@@ -56,6 +56,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
     // -----------------------------------------------------------------------------------------------
 
     const registrarDatosCitas = (data) => {
+        console.log(data)
         if (updateCita) {
             // const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             // console.log(data)
@@ -216,7 +217,7 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                 <label htmlFor="check">Envio de Cotización: </label>
                                                 <input type="checkbox" {...register("enviaCotiza")} />
                                             </div>
-                                            <input type="text" placeholder='Prima anual' {...register("primaAnual")} />
+                                            <input type="number" placeholder='Prima anual' {...register("primaAnual")} />
 
                                         </div>
                                     </div>

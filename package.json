@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@handsontable/react": "^12.3.0",
+    "@mui/material": "^5.11.9",
     "@reduxjs/toolkit": "^1.8.6",
     "@syncfusion/ej2-react-pivotview": "^20.4.44",
+    "@tanstack/react-table": "^8.7.9",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
     "handsontable": "^12.3.0",
@@ -20,6 +24,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
+    "react-export-table-to-excel": "^1.0.6",
     "react-hook-form": "^7.37.0",
     "react-pivottable": "^0.11.0",
     "react-plotly.js": "^2.6.0",

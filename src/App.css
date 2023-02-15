@@ -725,20 +725,21 @@ td button i {
   align-items: center;
   border: none;
 }
-.container-report-table-button i{
+.container-report-table-button button {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   padding: 0.5rem;
+  background: none;
 }
-.container-report-table-button i button{
+.container-report-table-button button i{
   border: none;
 }
 
 .container-report-table-t{
- height: 88%;
+ height: 85%;
  width: 100%;
- overflow-y: scroll;
+overflow-x: scroll;
 
 }
 
