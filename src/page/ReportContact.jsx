@@ -120,7 +120,7 @@ const ReportContact = () => {
     useEffect(() => {
 
         if (getFilterFHoy) {
-            setDataFilter(dataFilter.filter((e => e.createdAt === getFilterFHoy)))
+            setDataFilter(dataFilter.filter((e => e.createdAt >= dateHoy)))
         }
 
     }, [test])
@@ -142,6 +142,13 @@ const ReportContact = () => {
         "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
         "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
       ];
+
+      const MESESN = [
+        "01", "02", "03", "04", "05", "06", "07",
+        "08", "09", "10", "11", "12",
+      ];
+    
+    const dateHoy =  date.getFullYear() + '-' + MESESN[date.getMonth()] + '-' + date.getDate();
 
     const dateNow = date.getDate() + '-' + MESES[date.getMonth()] + '-' + date.getFullYear();
 
