@@ -2,7 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { getRegistros, getRegistrosThunk } from '../store/slice/getForm.slice';
-import DashboardDetails from './DashboardDetails';
+import ChartContactoEfectivo from './Charts/ChartContactoEfectivo';
+import ChartContacts from './Charts/ChartContacts';
+import DashboardDetails from './Charts/DashboardDetails';
 
 const Home = () => {
 
@@ -323,8 +325,8 @@ const Home = () => {
             </div> */}
             <div className='grid-chart'>
                 <DashboardDetails />
-                <h1>hola</h1>
-                <h1>hola</h1>
+                <ChartContacts />
+                <ChartContactoEfectivo/>
             </div>
 
         </div>

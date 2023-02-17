@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, LinearScale, CategoryScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
-import getConfig from '../utils/getConfig';
+import getConfig from '../../utils/getConfig';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, LinearScale, CategoryScale);
 
@@ -69,6 +69,11 @@ const DashboardDetails = () => {
             height="100%" 
             fonstsize="200"
             />
+            <div>
+            <div className='container-ntotal'>
+            <p><b>Total: {dataU.length}</b></p>
+            </div>
+        </div>
         </div>
     );
 };

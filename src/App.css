@@ -427,7 +427,7 @@ form button:hover .btn-i-hidden {
   gap: 1rem;
 }
 
-.cita-separates select{
+.cita-separates select {
   width: 17.5rem;
   display: flex;
   gap: 0.5rem;
@@ -459,9 +459,7 @@ form button:hover .btn-i-hidden {
   color: black;
 }
 
-.form-cita-register form-cita-regis
-
-.form--regis {
+.form-cita-register form-cita-regis .form--regis {
   margin-left: 1.5rem;
 }
 
@@ -554,7 +552,7 @@ td button i {
   overflow-y: auto;
 }
 
-.cancel-check2{
+.cancel-check2 {
   display: flex;
   justify-content: flex-end;
   padding: 0 1rem;
@@ -562,23 +560,23 @@ td button i {
 }
 
 .cancel-check2 button {
- border: none;
- background: none;
+  border: none;
+  background: none;
 }
 
-.cancel-check2 button i{
+.cancel-check2 button i {
   margin: 0;
   font-size: 1.3rem;
 }
 
-.contain-tomador-info{
+.contain-tomador-info {
   padding: 5rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.info-tomador{
+.info-tomador {
   padding: 1rem;
   width: 100%;
   background: rgba(0, 0, 0, 0.03);
@@ -588,12 +586,12 @@ td button i {
   flex-direction: column;
 }
 
-.info-tomador-update{
+.info-tomador-update {
   display: flex;
   justify-content: flex-end;
 }
 
-.info-tomador-update button{
+.info-tomador-update button {
   border: 0.13rem solid black;
   background: #71dfbe;
   width: 2rem;
@@ -601,32 +599,32 @@ td button i {
   border-radius: 0.5rem;
 }
 
-.info-tomador-title-btn{
+.info-tomador-title-btn {
   display: flex;
   justify-content: space-between;
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.4);
   padding-bottom: 0.5rem;
 }
 
-.info-tomador-title-btn h3{
+.info-tomador-title-btn h3 {
   margin: 0;
   font-size: 1.8rem;
 }
 
-.info-tomador-title-btn button{
+.info-tomador-title-btn button {
   margin: 0;
   border: 0.1rem solid rgba(0, 0, 0, 0.3);
   border-radius: 0.2rem;
 }
 
-.info-tomador-infodetails{
+.info-tomador-infodetails {
   margin-top: 1rem;
   background: white;
   border: 0.1rem solid rgba(0, 0, 0, 0.2);
 }
 
 /* loadin */
-.overlay{
+.overlay {
   background: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
@@ -644,6 +642,7 @@ td button i {
   width: 80px;
   height: 80px;
 }
+
 .lds-ellipsis div {
   position: absolute;
   top: 33px;
@@ -653,42 +652,52 @@ td button i {
   background: #fff;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
   left: 32px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes lds-ellipsis3 {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0);
   }
 }
+
 @keyframes lds-ellipsis2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(24px, 0);
   }
@@ -696,15 +705,15 @@ td button i {
 
 /* fin loading */
 
-.Container-report{
+.Container-report {
   padding: 5rem 2rem 2rem 2rem;
 }
 
-.Container-report-select{
-    width: 100%;
+.Container-report-select {
+  width: 100%;
 }
 
-.Container-report-select button{
+.Container-report-select button {
   margin: 0;
   border: 0.2rem solid rgba(0, 0, 0, 0.7);
   width: 10rem;
@@ -713,18 +722,19 @@ td button i {
   border-radius: 1rem 1rem 0rem 0rem;
 }
 
-.container-report-table{
- border: 0.2rem solid rgba(0, 0, 0, 0.7);
- height: 43rem;
- padding: 1rem;
+.container-report-table {
+  border: 0.2rem solid rgba(0, 0, 0, 0.7);
+  height: 43rem;
+  padding: 1rem;
 }
 
-.container-report-table-button{
+.container-report-table-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: none;
 }
+
 .container-report-table-button button {
   border: none;
   font-size: 1.5rem;
@@ -732,55 +742,56 @@ td button i {
   padding: 0.5rem;
   background: none;
 }
-.container-report-table-button button i{
+
+.container-report-table-button button i {
   border: none;
 }
 
-.container-report-table-t{
- height: 85%;
- width: 100%;
-overflow-x: scroll;
+.container-report-table-t {
+  height: 85%;
+  width: 100%;
+  overflow-x: scroll;
 
 }
 
-.register-tomador{
+.register-tomador {
   padding: 3rem;
 }
 
-.container-report-table-button-filter{
+.container-report-table-button-filter {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding-bottom: 1rem;
 }
 
-.container-report-table-button-filter select{
+.container-report-table-button-filter select {
   width: 10rem;
   height: 1.5rem;
 }
 
-.container-report-table-button-filter input{
+.container-report-table-button-filter input {
   width: 1rem;
 }
 
-.container-report-table-filter{
+.container-report-table-filter {
   display: flex;
   gap: 0.3rem;
 }
 
-.container-report-table-filter-f{
+.container-report-table-filter-f {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.gapp{
+.gapp {
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
 }
 
-.gapp input{
+.gapp input {
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;
@@ -788,28 +799,30 @@ overflow-x: scroll;
   height: 1.5rem;
 }
 
-.count-length-datos{
+.count-length-datos {
   display: flex;
   justify-content: flex-end;
   gap: 0.7rem;
   font-weight: 600;
   align-items: flex-start;
 }
-.count-length-datos h5{
- margin: 0;
-}
-.count-length-datos p{
+
+.count-length-datos h5 {
   margin: 0;
 }
 
-.acomodar input{
+.count-length-datos p {
+  margin: 0;
+}
+
+.acomodar input {
   width: 9rem;
   height: 1.5rem;
   text-align: end;
   padding: 0rem 0.3rem;
 }
 
-.color-table{
+.color-table {
   background: #363a8b;
   position: sticky;
   top: 0;
@@ -817,7 +830,7 @@ overflow-x: scroll;
   color: #fff;
 }
 
-.container-login{
+.container-login {
   background: #fff;
   /* position: fixed; */
   top: 0;
@@ -829,7 +842,7 @@ overflow-x: scroll;
   align-items: center;
   gap: 2rem;
   height: 45rem;
-} 
+}
 
 .form-img {
   display: flex;
@@ -838,37 +851,49 @@ overflow-x: scroll;
   gap: 2rem;
 }
 
-.form-img img{
+.form-img img {
   border-right: 0.1rem solid black;
   padding-right: 1rem;
 }
 
-.me-autom{
+.me-autom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 73rem;
 }
 
-.nav-items-{
+.nav-items- {
   display: flex;
   justify-content: center;
   color: #fff;
   align-items: center;
 }
 
-.nav-items-logoff button{
+.nav-items-logoff button {
   background: none;
   color: #fff;
   border: none;
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
 }
 
-.box-chart{
+.box-chart {
   width: 100%;
+  background: #fff;
+  border-radius: 0.3rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 0.2rem;
 }
 
-.grid-chart{
+.grid-chart {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.container-ntotal {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: end;
 }
