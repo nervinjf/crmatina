@@ -864,6 +864,11 @@ overflow-x: scroll;
   font-size: 1.5rem; 
 }
 
-.navbar{
-  
+.box-chart{
+  width: 100%;
+}
+
+.grid-chart{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
