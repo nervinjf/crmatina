@@ -39,7 +39,7 @@ const ChartContactoEfectivo = () => {
         labels: unico,
         datasets: [
             {
-                label: '# Registro usuario',
+                label: '# Registro Contacto',
                 data: numTipo,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',

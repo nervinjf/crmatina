@@ -878,7 +878,6 @@ td button i {
 }
 
 .box-chart {
-  width: 100%;
   background: #fff;
   border-radius: 0.3rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -896,4 +895,55 @@ td button i {
   display: flex;
   align-items: end;
   justify-content: end;
+}
+
+.container-grid-details-chart{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cuaricula-details-chair{
+  width: 90%;
+  height: 45rem;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 5rem 2rem;
+  border-radius: 0.3rem;
+}
+
+.grid-details-chart{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-content: center;
+  align-items: start;
+
+}
+
+.butttonclose{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.butttonclose button{
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-size: 2rem;
 }

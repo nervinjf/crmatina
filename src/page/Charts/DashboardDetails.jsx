@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, LinearScale,
 import { Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import getConfig from '../../utils/getConfig';
+import ChartDetailsTipo from './ChartDetails/ChartDetailsTipo';
 
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, LinearScale, CategoryScale);
 
@@ -10,6 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, BarElement, LinearScale, CategoryS
 const DashboardDetails = () => {
 
     const [dataU, setDataU] = useState([])
+    const [ active, setActive ] = useState(false);
 
     useEffect(() => {
         axios.get('https://atina-neb-production.up.railway.app/api/v1/cita', getConfig())
@@ -60,9 +62,11 @@ const DashboardDetails = () => {
         ],
       };
 
-    // console.log(dataU)
+      console.log(active)
     return (
-        <div className='box-chart'>
+      <>
+      {active && <ChartDetailsTipo setActive={setActive} dataU={dataU}/>}
+        <div className='box-chart' onClick={() => setActive(true)}>
             <Bar 
             data={data}
             width="100%"
@@ -75,6 +79,7 @@ const DashboardDetails = () => {
             </div>
         </div>
         </div>
+      </>
     );
 };
 
