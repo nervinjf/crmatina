@@ -21,7 +21,7 @@ const LogIn = () => {
 
 
     const Login = (data) =>{
-        axios.post("https://atina-neb-production.up.railway.app/api/v1/auth/login", data)
+        axios.post("http://crmatina.nebconnection.com/api/v1/auth/login", data)
         // .then(res => JSON.parse(res))
         // .then(res => console.log(res.data))
         .then(res => {

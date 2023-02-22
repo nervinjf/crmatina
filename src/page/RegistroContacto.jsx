@@ -18,18 +18,18 @@ const RegistroContacto = () => {
 
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
+        axios.get('http://crmatina.nebconnection.com/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('http://crmatina.nebconnection.com/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
 
 
     const registrarContacto = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data, getConfig())
+        axios.post(`http://crmatina.nebconnection.com/api/v1/contacto`, data, getConfig())
             .catch(error => console.log(error.response))
             .then(() => getUsers())
         reset({

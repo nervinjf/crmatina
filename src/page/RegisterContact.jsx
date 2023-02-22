@@ -45,13 +45,13 @@ const RegisterContact = ({id, setRegisterContact}) => {
     //     if (userSelected) {
     //         const dataPut = { "statusSuscripcion": data.statusSuscripcion }
     //         console.log(data.id)
-    //         axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut)
+    //         axios.put(`http://crmatina.nebconnection.com/api/v1/cita/${data.id}/`, dataPut)
     //             .then(() => getUsers())
 
     //     } else {
 
     //         const data2 = ({ ...data, "tomadorId": id });
-    //         axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2)
+    //         axios.post(`http://crmatina.nebconnection.com/api/v1/cita`, data2)
     //             .catch(error => {
     //                 console.log(error.response)
     //                 if (error.response.status === 400) {
@@ -74,14 +74,14 @@ const RegisterContact = ({id, setRegisterContact}) => {
     // }
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('http://crmatina.nebconnection.com/api/v1/users')
             .then(res => setGetUsuario(res.data))
             setIdUser(JSON.parse(localStorage.getItem("userData")));
     }, [])
 
     const registrarContacto = (data) => {
         const data2 = ({ ...data, "tomadorId": id, "userId": idUser.id});
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/contacto`, data2, getConfig())
+        axios.post(`http://crmatina.nebconnection.com/api/v1/contacto`, data2, getConfig())
         .catch(error => {
                             console.log(error.response)
                             if (error.response.status === 400) {

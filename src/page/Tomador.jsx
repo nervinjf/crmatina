@@ -16,7 +16,7 @@ const Tomador = () => {
     const [ idUser, setIdUser ] = useState("")
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('http://crmatina.nebconnection.com/api/v1/users')
             .then(res => setGetUsuario(res.data))
 
             setIdUser(JSON.parse(localStorage.getItem("userData")));
@@ -24,7 +24,7 @@ const Tomador = () => {
 
     const registrarDatosTomador = (data) => {
         const data2 = {...data, "userId": idUser.id}
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/tomador`, data2, getConfig())
+        axios.post(`http://crmatina.nebconnection.com/api/v1/tomador`, data2, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {

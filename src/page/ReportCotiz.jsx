@@ -133,7 +133,7 @@ const ReportCotiz = () => {
     
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/cita', getConfig())
+        axios.get('http://crmatina.nebconnection.com/api/v1/cita', getConfig())
             .then(res => setData(res.data.filter(e => e.plan != '')));
     }, []);
 

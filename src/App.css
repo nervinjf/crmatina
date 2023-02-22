@@ -913,14 +913,13 @@ td button i {
 
 .cuaricula-details-chair{
   width: 90%;
-  height: 45rem;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 5rem;
-  padding: 5rem 2rem;
+  padding: 1rem 2rem;
   border-radius: 0.3rem;
 }
 

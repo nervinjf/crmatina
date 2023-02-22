@@ -51,7 +51,7 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
         if (updateToma) {
             // const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             console.log(data)
-            axios.put(`https://atina-neb-production.up.railway.app/api/v1/tomador/${data.id}/`, data, getConfig())
+            axios.put(`http://crmatina.nebconnection.com/api/v1/tomador/${data.id}/`, data, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -78,7 +78,7 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
         } else {
 
             const data2 = ({ ...data, "tomadorId": id });
-            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2, getConfig())
+            axios.post(`http://crmatina.nebconnection.com/api/v1/cita`, data2, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -124,7 +124,7 @@ const UpdateTomador = ({ id, setUpdateTomador, updateToma }) => {
     }, [infoTipo && userSelected]);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('http://crmatina.nebconnection.com/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
 

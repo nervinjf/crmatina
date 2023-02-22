@@ -22,7 +22,7 @@ const TomadorDetails = () => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${id}`, getConfig())
+        axios.get(`http://crmatina.nebconnection.com/api/v1/tomador/${id}`, getConfig())
             .then(res => setToamdorDetails(res.data))
             .finally(() => setLoading(false))
     }, [registerContact || registerCitaC || updateTomador ])

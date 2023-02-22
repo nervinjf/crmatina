@@ -27,7 +27,7 @@ function App() {
   }
 
   useEffect(() => {
-    axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador`, getConfig())
+    axios.get(`http://crmatina.nebconnection.com/api/v1/tomador`, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {

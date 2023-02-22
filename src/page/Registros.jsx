@@ -55,7 +55,7 @@ const Registros = () => {
     const hotTableComponent = React.useRef(null);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
+        axios.get('http://crmatina.nebconnection.com/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
 
         console.log(nombreFilter)

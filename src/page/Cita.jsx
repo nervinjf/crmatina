@@ -34,12 +34,12 @@ const Cita = () => {
     }, [userSelected]);
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/tomador', getConfig())
+        axios.get('http://crmatina.nebconnection.com/api/v1/tomador', getConfig())
             .then(res => setGetTomador(res.data))
     }, [])
 
     useEffect(() => {
-        axios.get('https://atina-neb-production.up.railway.app/api/v1/users')
+        axios.get('http://crmatina.nebconnection.com/api/v1/users')
             .then(res => setGetUsuario(res.data))
     }, [])
 
@@ -47,13 +47,13 @@ const Cita = () => {
         if (userSelected) {
             const dataPut = { "statusSuscripcion": data.statusSuscripcion }
             console.log(data.id)
-            axios.put(`https://atina-neb-production.up.railway.app/api/v1/cita/${data.id}/`, dataPut, getConfig())
+            axios.put(`http://crmatina.nebconnection.com/api/v1/cita/${data.id}/`, dataPut, getConfig())
                 .then(() => getUsers())
 
         } else {
 
             const data2 = ({ ...data, "tomadorId": getTomadorId });
-            axios.post(`https://atina-neb-production.up.railway.app/api/v1/cita`, data2, getConfig())
+            axios.post(`http://crmatina.nebconnection.com/api/v1/cita`, data2, getConfig())
                 .catch(error => {
                     console.log(error.response)
                     if (error.response.status === 400) {
@@ -113,7 +113,7 @@ const Cita = () => {
     }
 
     useEffect(() => {
-        axios.get(`https://atina-neb-production.up.railway.app/api/v1/tomador/${getTomadorId}`, getConfig())
+        axios.get(`http://crmatina.nebconnection.com/api/v1/tomador/${getTomadorId}`, getConfig())
             .then(res => setGetTomadorIdO(res.data))
             .then(res => console.log(res?.error))
     }, [getTomadorId])

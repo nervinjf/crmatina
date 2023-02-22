@@ -14,7 +14,7 @@ const RegisterUser = () => {
     const [isCheckNull, setIsCheckNull] = useState(false);
 
     const registrarDatosTomador = (data) => {
-        axios.post(`https://atina-neb-production.up.railway.app/api/v1/users`, data, getConfig())
+        axios.post(`http://crmatina.nebconnection.com/api/v1/users`, data, getConfig())
         .catch(error => {
             console.log(error.response)
             if (error.response.status === 400) {
