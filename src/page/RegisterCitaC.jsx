@@ -212,12 +212,12 @@ const RegisterCitaC = ({ id, setRegisterCitaC, updateCita }) => {
                                                     <option value="Anual">Anual</option>
                                                 </select>
                                             </div>
-                                            <input type="text" placeholder='Monto Poliza' {...register("poliza")} />
+                                            <input type="text" placeholder='Monto Poliza' step="0.01" {...register("poliza")} />
                                             <div className='form-cita-register-cotizacion-check'>
                                                 <label htmlFor="check">Envio de Cotización: </label>
                                                 <input type="checkbox" {...register("enviaCotiza")} />
                                             </div>
-                                            <input type="number" placeholder='Prima anual' {...register("primaAnual")} />
+                                            <input type="number" placeholder='Prima anual' step="0.01" {...register("primaAnual")} />
 
                                         </div>
                                     </div>
